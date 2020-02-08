@@ -1,21 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://wbybl.github.io</id>
-    <title>Gridea</title>
-    <updated>2020-02-08T07:26:05.056Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://wbybl.github.io"/>
-    <link rel="self" href="https://wbybl.github.io/atom.xml"/>
-    <logo>https://wbybl.github.io/images/avatar.png</logo>
-    <icon>https://wbybl.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
-    <entry>
-        <title type="html"><![CDATA[P1074靶形数独]]></title>
-        <id>https://wbybl.github.io/post/p1074-ba-xing-shu-du</id>
-        <link href="https://wbybl.github.io/post/p1074-ba-xing-shu-du">
-        </link>
-        <updated>2020-02-08T07:23:03.000Z</updated>
-        <content type="html"><![CDATA[<p>这道题是一道dfs好题，很多人在题解里用了各种剪枝，以及一些奇奇怪怪的优化，还有大佬用的舞蹈链算法，蒟蒻不会舞蹈链，剪枝的效果也不是很好，只能用一些优化来过这道题了。</p>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>P1074靶形数独 | Gridea</title>
+<meta name="description" content="">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://wbybl.github.io/favicon.ico?v=1581146742068">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://wbybl.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://wbybl.github.io">
+        <img class="avatar" src="https://wbybl.github.io/images/avatar.png?v=1581146742068" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://wbybl.github.io">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">P1074靶形数独</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2020-02-08</span>
+            
+          </div>
+          <div class="post-content">
+            <p>这道题是一道dfs好题，很多人在题解里用了各种剪枝，以及一些奇奇怪怪的优化，还有大佬用的舞蹈链算法，蒟蒻不会舞蹈链，剪枝的效果也不是很好，只能用一些优化来过这道题了。</p>
 <p>这道题虽然已经有很多题解了，但是我还是来交题解的原因是我觉得我的代码跑的，可以给大家提供一些关于搜索顺序的思路，<s>希望管理员不要认为我这是重复的解法</s>。不过我敢保证，我的代码跑的一定比除了打表题解以外的题解跑的快。</p>
 <p><s>说实话，这题普通剪枝也可以水过</s>，但是既然我们要追求速度，就不能仅仅局限于最优性、可行性剪枝。画了几张图以后发现一个规律，先搜索约束个数多的点，效率最高。这里的约束个数，就是这个点所在行、列、宫已经填好的数的个数之和。（具体内容见下图）</p>
 <p>所以我们就得到了一个思路，与处理好搜索顺序，也就是统计每个点的约束个数，先找到最多的，然后记录下来，假设它已经填好（把他所在的行、列、宫的约束个数加一），然后继续找第二多的就好了。最后按照这个顺序在每次dfs结束后找到下一个填数的点，就ok了，这样可以达到总效率888ms,已经非常快了。</p>
@@ -89,38 +160,58 @@ int main(){
 	else cout&lt;&lt;-1&lt;&lt;endl;//输出答案
 }
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://wbybl.github.io/post/hello-gridea</id>
-        <link href="https://wbybl.github.io/post/hello-gridea">
-        </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
-]]></content>
-    </entry>
-</feed>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://wbybl.github.io/post/hello-gridea">
+              <h3 class="post-title">
+                下一篇：Hello Gridea
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan"></div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://wbybl.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
