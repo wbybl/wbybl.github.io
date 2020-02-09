@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>关于 | Gridea</title>
+<title>二维凸包模板 luoguP2742 | Gridea</title>
 <meta name="description" content="" />
 <link rel="shortcut icon" href="https://wbybl.github.io/favicon.ico">
 <link rel="stylesheet" href="https://wbybl.github.io/styles/main.css">
@@ -75,9 +75,9 @@
       <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
 
         <div class="center content">
-          <div class="featured-image cover" style="background-image: url('https://wbybl.github.io/media/images/gridea.jpg');">
+          <div class="featured-image cover" style="background-image: url('https://wbybl.github.io/post-images/er-wei-tu-bao-mo-ban-luogup2742.jpg');">
             <div class="meta top"> 
-              <time class="meta-info" style="float:left;" datetime="2019-01-25"><i class="fa fa-calendar"></i><span class="lately">1 年前</span></time>
+              <time class="meta-info" style="float:left;" datetime="2020-02-09"><i class="fa fa-calendar"></i><span class="lately">2 分钟前</span></time>
                
                
             </div>
@@ -85,7 +85,7 @@
               <div class="tags ">
                 
               </div>
-              <h1 class="title ularge white bold">关于</h1>
+              <h1 class="title ularge white bold">二维凸包模板 luoguP2742</h1>
             </div>
           </div>
         </div>  
@@ -95,13 +95,87 @@
             <article class="main-article post">
               <section class="post-content">
                 <div class="text">
-                  <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<h2 id="联系我呀">📬 联系我呀</h2>
+                  <p>题目：给定一些点，求能把所有这些点包含在内的最小的凸多边形</p>
+<p>解法：算法竞赛入门到进阶P283的Andrew算法</p>
+<p>（1）把所有这些点按照横坐标从小到大排序，如果x相同，按照y从小到大排序</p>
+<p>（2）从左到右扫描所有点，求下凸包。每到达一个点时判断，如果新点在下凸包左前方（向量判断），加入下凸包，否则回溯（删除最近加入的，知道这个新点在下凸包左边，并加入凸包）</p>
+<p>（3）同理求上凸包<br>
+<img src="https://wbybl.github.io/post-images/1581229454759.png" alt="" loading="lazy"></p>
+<pre><code>#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const double eps=1e-8;
+int sgn(double x){
+    if(fabs(x)&lt;eps)return 0;
+    else return x&lt;0?-1:1;
+}
+struct Point{
+    double x,y;
+    Point(double X=0,double Y=0){
+        x=X;
+        y=Y;
+    }
+    Point operator +(Point B){
+        return Point(x+B.x,y+B.y);
+    }
+    Point operator -(Point B){
+        return Point(x-B.x,y-B.y);
+    }
+    Point operator *(double k){
+        return Point(x*k,y*k);
+    }
+    Point operator /(double k){
+        return Point(x/k,y/k);
+    }
+    bool operator ==(Point B){
+        return sgn(x-B.x)==0&amp;&amp;sgn(y-B.y)==0;
+    }
+    bool operator &lt;(Point B){
+        return sgn(x-B.x)&lt;0||(sgn(x-B.x)==0&amp;&amp;sgn(y-B.y&lt;0));
+    }
+}; 
+typedef Point Vector;
+double Cross(Vector A,Vector B){
+    return A.x*B.y-A.y*B.x;
+}
+double Distance(Point A,Point B){
+    return hypot(A.x-B.x,A.y-B.y);
+}
+int Convex_hull(Point *p,int n,Point *ch){
+    sort(p,p+n);
+    n=unique(p,p+n)-p;
+    int v=0;
+    for(int i=0;i&lt;n;i++){
+        while(v&gt;1&amp;&amp;sgn(Cross(ch[v-1]-ch[v-2],p[i]-ch[v-2]))&lt;=0)
+        v--;
+        ch[v++]=p[i];
+    }
+    int j=v;
+    for(int i=n-2;i&gt;=0;i--){
+        while(v&gt;j&amp;&amp;sgn(Cross(ch[v-1]-ch[v-2],p[i]-ch[v-2]))&lt;=0)
+        v--;
+        ch[v++]=p[i];
+    }
+    if(n&gt;1)v--;
+    return v;
+}
+Point p[11000],ch[11000];
+int main(){
+    int n;
+    cin&gt;&gt;n;
+    for(int i=0;i&lt;n;i++)
+    cin&gt;&gt;p[i].x&gt;&gt;p[i].y;
+    int v=Convex_hull(p,n,ch);
+    double ans=0;
+    if(v==1)ans=0;
+    else if(v==2)ans=Distance(ch[0],ch[1]);
+    else{
+        for(int i=0;i&lt;v;i++)
+            ans+=Distance(ch[i],ch[(i+1)%v]);
+        printf(&quot;%.2lf\n&quot;,ans);
+    } 
+    return 0;
+}
+</code></pre>
 
                 </div>
                 <div class="clear"></div>
@@ -111,6 +185,19 @@
 
             <section class="related section">
               
+              
+              <article class="next grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/cf346d-robot-control.jpg');"></div>
+                 <a href="https://wbybl.github.io/post/cf346d-robot-control" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2020-02-09">2020-02-09</time>
+                  <h4 class="title white no-margin">CF346D 【Robot Control】</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://wbybl.github.io/media/images/right-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
               
 
                 <div class="clear"></div>
