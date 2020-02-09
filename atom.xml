@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wbybl.github.io</id>
     <title>Gridea</title>
-    <updated>2020-02-09T04:56:46.477Z</updated>
+    <updated>2020-02-09T04:59:48.832Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wbybl.github.io"/>
     <link rel="self" href="https://wbybl.github.io/atom.xml"/>
@@ -10,113 +10,11 @@
     <icon>https://wbybl.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
     <entry>
-        <title type="html"><![CDATA[test]]></title>
-        <id>https://wbybl.github.io/post/test</id>
-        <link href="https://wbybl.github.io/post/test">
-        </link>
-        <updated>2020-02-09T04:12:45.000Z</updated>
-        <content type="html"><![CDATA[<p>你有 n 个水杯,标号为 1, 2, . . . , n ,一开始都只有 1 升水。每次可以选两个分别有 x, y (x ≥ y) 升水的杯子,<br>
-　　可以操作使得变成 x − y, 2y 。<br>
-　　你可以执行若干次操作,要求最后第一个水杯有 k 升水。<br>
-输入格式</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[UVA1343 【旋转游戏 The Rotation Game】]]></title>
-        <id>https://wbybl.github.io/post/uva1343-xuan-zhuan-you-xi-the-rotation-game</id>
-        <link href="https://wbybl.github.io/post/uva1343-xuan-zhuan-you-xi-the-rotation-game">
-        </link>
-        <updated>2020-02-08T08:01:59.000Z</updated>
-        <content type="html"><![CDATA[<p>这道题可以说是ida*的“模板&quot;题</p>
-<p>ida*就是迭代加深搜索+估价，枚举层数，开始dfs，到枚举的层数就停止，这样的好处是有bfs的顺序（速度），剩下了bfs的空间。</p>
-<p>什么是估价呢，估价就是计算一个当前方案的价值，找一个比较理想的先搜索，这样理论上可以加速搜索的过程，一个好的估价函数可以让你的搜索直接找到正解（虽然不大可能）</p>
-<p>这道题就是将上下左右的移动当成一种状态，每次搜索动哪一根，估价函数为中间的八个格子有几个相等的（原因是题目求最少几次可以让中间的变成一样的数），每次迭代加深就可以了。</p>
-<p>这题有很多细节，比如说题目中的读入非常玄学，按照1~24的顺序从上往下，从左往右读，这就需要一些处理来计算出每一根上面的数存在哪里。其他细节详见代码注释。</p>
-<pre><code class="language-cpp">#include&lt;iostream&gt;
-using namespace std;
-//            1     2 
-//            3     4
-//      5  6  7  8  9 10 11
-//			  12    13			
-//      14 15 16 17 18 19 20
-//            21    22
-//            23    24
-int zhong[8]={7,8,9,12,13,16,17,18};
-int a[100];
-int b[8][7]={{1,3,7,12,16,21,23},{2,4,9,13,18,22,24},{11,10,9,8,7,6,5},{20,19,18,17,16,15,14},
-{24,22,18,13,9,4,2},{23,21,16,12,7,3,1},{14,15,16,17,18,19,20},{5,6,7,8,9,10,11}};
-int back[8]={5,4,7,6,1,0,3,2};
-int count(int x){
-	int cnt=0;
-	for(int i=0;i&lt;=7;i++)if(a[zhong[i]]==x)cnt++;
-	return cnt;
-}
-int calc(){
-	return 8-max(max(count(1),count(2)),count(3));
-}
-void move(int n){
-	int q=a[b[n][0]];
-	for(int i=1;i&lt;=6;i++){
-		a[b[n][i-1]]=a[b[n][i]];
-	}
-	a[b[n][6]]=q;
-}
-char c[100000];
-void output(){
-	cout&lt;&lt;&quot;      &quot;&lt;&lt;a[1]&lt;&lt;&quot;     &quot;&lt;&lt;a[2]&lt;&lt;endl;
-	cout&lt;&lt;&quot;      &quot;&lt;&lt;a[3]&lt;&lt;&quot;     &quot;&lt;&lt;a[4]&lt;&lt;endl;
-	cout&lt;&lt;a[5]&lt;&lt;&quot;  &quot;&lt;&lt;a[6]&lt;&lt;&quot;  &quot;&lt;&lt;a[7]&lt;&lt;&quot;  &quot;&lt;&lt;a[8]&lt;&lt;&quot;  &quot;&lt;&lt;a[9]&lt;&lt;&quot;  &quot;&lt;&lt;a[10]&lt;&lt;&quot;  &quot;&lt;&lt;a[11]&lt;&lt;endl;
-	cout&lt;&lt;&quot;      &quot;&lt;&lt;a[12]&lt;&lt;&quot;     &quot;&lt;&lt;a[13]&lt;&lt;endl;
-	cout&lt;&lt;a[14]&lt;&lt;&quot;  &quot;&lt;&lt;a[15]&lt;&lt;&quot;  &quot;&lt;&lt;a[16]&lt;&lt;&quot;  &quot;&lt;&lt;a[17]&lt;&lt;&quot;  &quot;&lt;&lt;a[18]&lt;&lt;&quot;  &quot;&lt;&lt;a[19]&lt;&lt;&quot;  &quot;&lt;&lt;a[20]&lt;&lt;endl;
-	cout&lt;&lt;&quot;      &quot;&lt;&lt;a[21]&lt;&lt;&quot;     &quot;&lt;&lt;a[22]&lt;&lt;endl;
-	cout&lt;&lt;&quot;      &quot;&lt;&lt;a[23]&lt;&lt;&quot;     &quot;&lt;&lt;a[24]; 
-}
-bool dfs(int now,int last,int limit){
-	//output();
-	//cout&lt;&lt;endl&lt;&lt;&quot;-------------------------------&quot;&lt;&lt;endl;
-	if(calc()==0){
-		return 1;
-	}
-	if(calc()+now&gt;limit)return 0;
-	for(int i=0;i&lt;=7;i++){
-	//	cout&lt;&lt;(char)(i+'A')&lt;&lt;endl;
-		//if(i==last)continue;
-		move(i);
-		c[now+1]=i+'A';
-		if(dfs(now+1,i,limit))return 1;
-		move(back[i]); 
-	}
-	return 0;
-}
-int main(){
-	//freopen(&quot;out.txt&quot;,&quot;w&quot;,stdout);
-    while(1){
-		cin&gt;&gt;a[1];
-		if(a[1]==0)return 0;
-		for(int i=2;i&lt;=24;i++)cin&gt;&gt;a[i];
-		if(calc()==0)cout&lt;&lt;&quot;No moves needed&quot;&lt;&lt;endl&lt;&lt;a[zhong[1]]&lt;&lt;endl;
-		else{
-			int ans=1;
-			while(1){
-				if(dfs(0,-1,ans)){
-					break;
-				}
-				ans++;
-			}
-			for(int i=1;i&lt;=ans;i++)cout&lt;&lt;c[i];
-			cout&lt;&lt;endl&lt;&lt;a[zhong[1]]&lt;&lt;endl;
-		}	
-    }
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P1074靶形数独]]></title>
+        <title type="html"><![CDATA[P1074 靶形数独]]></title>
         <id>https://wbybl.github.io/post/p1074-ba-xing-shu-du</id>
         <link href="https://wbybl.github.io/post/p1074-ba-xing-shu-du">
         </link>
-        <updated>2020-02-08T07:23:03.000Z</updated>
+        <updated>2020-02-09T04:58:45.000Z</updated>
         <content type="html"><![CDATA[<p>这道题是一道dfs好题，很多人在题解里用了各种剪枝，以及一些奇奇怪怪的优化，还有大佬用的舞蹈链算法，蒟蒻不会舞蹈链，剪枝的效果也不是很好，只能用一些优化来过这道题了。</p>
 <p>这道题虽然已经有很多题解了，但是我还是来交题解的原因是我觉得我的代码跑的，可以给大家提供一些关于搜索顺序的思路，<s>希望管理员不要认为我这是重复的解法</s>。不过我敢保证，我的代码跑的一定比除了打表题解以外的题解跑的快。</p>
 <p><s>说实话，这题普通剪枝也可以水过</s>，但是既然我们要追求速度，就不能仅仅局限于最优性、可行性剪枝。画了几张图以后发现一个规律，先搜索约束个数多的点，效率最高。这里的约束个数，就是这个点所在行、列、宫已经填好的数的个数之和。（具体内容见下图）</p>
@@ -194,13 +92,93 @@ int main(){
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://wbybl.github.io/post/hello-gridea</id>
-        <link href="https://wbybl.github.io/post/hello-gridea">
+        <title type="html"><![CDATA[UVA1343 【旋转游戏 The Rotation Game】]]></title>
+        <id>https://wbybl.github.io/post/uva1343-xuan-zhuan-you-xi-the-rotation-game</id>
+        <link href="https://wbybl.github.io/post/uva1343-xuan-zhuan-you-xi-the-rotation-game">
         </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <content type="html"><![CDATA[<p>这道题是一道dfs好题，很多人在题解里用了各种剪枝，以及一些奇奇怪怪的优化，还有大佬用的舞蹈链算法，蒟蒻不会舞蹈链，剪枝的效果也不是很好，只能用一些优化来过这道题了。</p>
-<figure data-type="image" tabindex="1"><img src="https://cdn.luogu.com.cn/upload/pic/73082.png" alt="大家可以看一下，第一个就是预处理后的搜索树，第二个是随便搜，差距一目了然" loading="lazy"></figure>
+        <updated>2020-02-09T04:58:15.000Z</updated>
+        <content type="html"><![CDATA[<p>这道题可以说是ida*的“模板&quot;题</p>
+<p>ida*就是迭代加深搜索+估价，枚举层数，开始dfs，到枚举的层数就停止，这样的好处是有bfs的顺序（速度），剩下了bfs的空间。</p>
+<p>什么是估价呢，估价就是计算一个当前方案的价值，找一个比较理想的先搜索，这样理论上可以加速搜索的过程，一个好的估价函数可以让你的搜索直接找到正解（虽然不大可能）</p>
+<p>这道题就是将上下左右的移动当成一种状态，每次搜索动哪一根，估价函数为中间的八个格子有几个相等的（原因是题目求最少几次可以让中间的变成一样的数），每次迭代加深就可以了。</p>
+<p>这题有很多细节，比如说题目中的读入非常玄学，按照1~24的顺序从上往下，从左往右读，这就需要一些处理来计算出每一根上面的数存在哪里。其他细节详见代码注释。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+using namespace std;
+//            1     2 
+//            3     4
+//      5  6  7  8  9 10 11
+//			  12    13			
+//      14 15 16 17 18 19 20
+//            21    22
+//            23    24   随手打下的草稿，用来对照题目中的输入，处理细节
+int zhong[8]={7,8,9,12,13,16,17,18};//记录中心块读入的下标
+int a[100];
+int b[8][7]={{1,3,7,12,16,21,23},{2,4,9,13,18,22,24},{11,10,9,8,7,6,5},{20,19,18,17,16,15,14},
+{24,22,18,13,9,4,2},{23,21,16,12,7,3,1},{14,15,16,17,18,19,20},{5,6,7,8,9,10,11}};//记录8种操作挪动的下标
+int back[8]={5,4,7,6,1,0,3,2};
+int count(int x){//数在8个中心块种有多少个x
+	int cnt=0;
+	for(int i=0;i&lt;=7;i++)if(a[zhong[i]]==x)cnt++;
+	return cnt;
+}
+int calc(){//算出中心块中有多少个1,2,3，求出价值（估价部分）
+	return 8-max(max(count(1),count(2)),count(3));
+}
+void move(int n){//使用第n种操作移动，这里用到了之前处理的每一根上面的下标
+	int q=a[b[n][0]];
+	for(int i=1;i&lt;=6;i++){//去掉最后一个，共6个
+		a[b[n][i-1]]=a[b[n][i]];
+	}
+	a[b[n][6]]=q;//注意细节，最后一个需要单独赋值
+}
+char c[100000];
+void output(){//这个是调试用的输出函数，挺复杂的，挑不出来的同学们可以用他输出调试
+	cout&lt;&lt;&quot;      &quot;&lt;&lt;a[1]&lt;&lt;&quot;     &quot;&lt;&lt;a[2]&lt;&lt;endl;
+	cout&lt;&lt;&quot;      &quot;&lt;&lt;a[3]&lt;&lt;&quot;     &quot;&lt;&lt;a[4]&lt;&lt;endl;
+	cout&lt;&lt;a[5]&lt;&lt;&quot;  &quot;&lt;&lt;a[6]&lt;&lt;&quot;  &quot;&lt;&lt;a[7]&lt;&lt;&quot;  &quot;&lt;&lt;a[8]&lt;&lt;&quot;  &quot;&lt;&lt;a[9]&lt;&lt;&quot;  &quot;&lt;&lt;a[10]&lt;&lt;&quot;  &quot;&lt;&lt;a[11]&lt;&lt;endl;
+	cout&lt;&lt;&quot;      &quot;&lt;&lt;a[12]&lt;&lt;&quot;     &quot;&lt;&lt;a[13]&lt;&lt;endl;
+	cout&lt;&lt;a[14]&lt;&lt;&quot;  &quot;&lt;&lt;a[15]&lt;&lt;&quot;  &quot;&lt;&lt;a[16]&lt;&lt;&quot;  &quot;&lt;&lt;a[17]&lt;&lt;&quot;  &quot;&lt;&lt;a[18]&lt;&lt;&quot;  &quot;&lt;&lt;a[19]&lt;&lt;&quot;  &quot;&lt;&lt;a[20]&lt;&lt;endl;
+	cout&lt;&lt;&quot;      &quot;&lt;&lt;a[21]&lt;&lt;&quot;     &quot;&lt;&lt;a[22]&lt;&lt;endl;
+	cout&lt;&lt;&quot;      &quot;&lt;&lt;a[23]&lt;&lt;&quot;     &quot;&lt;&lt;a[24]; 
+}
+bool dfs(int now,int last,int limit){//搜索函数，返回值是搜没搜到解，如果搜到了解，答案就是迭代加深的层数
+	//output();
+	//cout&lt;&lt;endl&lt;&lt;&quot;-------------------------------&quot;&lt;&lt;endl;
+	if(calc()==0){//如果全部一样，就有解
+		return 1;
+	}
+	if(calc()+now&gt;limit)return 0;//剪枝，如果最少步数还超过了层数限制，就没有解了
+	for(int i=0;i&lt;=7;i++){//枚举是哪一种移动
+	//	cout&lt;&lt;(char)(i+'A')&lt;&lt;endl;
+		//if(i==last)continue;
+		move(i);
+		c[now+1]=i+'A';//记录移动方案，准备输出
+		if(dfs(now+1,i,limit))return 1;//如果搜到了解，返回true
+		move(back[i]); //这里要回溯，很重要的细节，back[i]表示i的逆操作
+	}
+	return 0;
+}
+int main(){
+	//freopen(&quot;out.txt&quot;,&quot;w&quot;,stdout);
+    while(1){
+		cin&gt;&gt;a[1];
+		if(a[1]==0)return 0;
+		for(int i=2;i&lt;=24;i++)cin&gt;&gt;a[i];
+		if(calc()==0)cout&lt;&lt;&quot;No moves needed&quot;&lt;&lt;endl&lt;&lt;a[zhong[1]]&lt;&lt;endl;//细节，如果不需要移动，直接输出
+		else{
+			int ans=1;
+			while(1){//迭代加深，枚举层数
+				if(dfs(0,-1,ans)){//如果在ans层内有解，答案为ans
+					break;
+				}
+				ans++;
+			}
+			for(int i=1;i&lt;=ans;i++)cout&lt;&lt;c[i];//输出移动的方案
+			cout&lt;&lt;endl&lt;&lt;a[zhong[1]]&lt;&lt;endl;//输出中心块颜色
+		}	
+    }
+}
+</code></pre>
 ]]></content>
     </entry>
 </feed>
