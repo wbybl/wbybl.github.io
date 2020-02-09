@@ -3,95 +3,99 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>P1074 靶形数独 | Gridea</title>
-<link rel="shortcut icon" href="https://wbybl.github.io/favicon.ico?v=1581224460033">
-<link href="https://cdn.remixicon.com/releases/v2.1.0/remixicon.css" rel="stylesheet">
+<meta name="description" content="" />
+<link rel="shortcut icon" href="https://wbybl.github.io/favicon.ico">
 <link rel="stylesheet" href="https://wbybl.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="P1074 靶形数独 | Gridea - Atom Feed" href="https://wbybl.github.io/atom.xml">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
-
-
-    <meta name="description" content="这道题是一道dfs好题，很多人在题解里用了各种剪枝，以及一些奇奇怪怪的优化，还有大佬用的舞蹈链算法，蒟蒻不会舞蹈链，剪枝的效果也不是很好，只能用一些优化来过这道题了。
-这道题虽然已经有很多题解了，但是我还是来交题解的原因是我觉得我的代码跑的..." />
-    <meta name="keywords" content="" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="https://wbybl.github.io/media/js/jquery.min.js"></script>
+<script src="https://wbybl.github.io/media/js/masonry.pkgd.min.js"></script>
+<script src="https://wbybl.github.io/media/js/aos.js"></script>
+<script src="https://wbybl.github.io/media/js/pace.min.js"></script>
+<script src="https://wbybl.github.io/media/js/view-image.min.js"></script>
+<script src="https://wbybl.github.io/media/js/functions.js"></script>
+    <script src="https://wbybl.github.io/media/js/waterfall.min.js"></script>
+    <script src="https://wbybl.github.io/media/js/prism.min.js"></script>
+    
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://wbybl.github.io">
-  <img class="avatar" src="https://wbybl.github.io/images/avatar.png?v=1581224460033" alt="">
-  </a>
-  <h1 class="site-title">
-    Gridea
-  </h1>
-  <p class="site-description">
-    
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-</div>
-
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              P1074 靶形数独
-            </h2>
-            <div class="post-info">
-              <span>
-                2020-02-09
-              </span>
-              <span>
-                6 min read
-              </span>
-              
+            <header id="header" class="grid-container">
+        <!-- start: .menu-wrapper -->
+        <div class="menu-mobile"> 
+          <i class="fa fa-reorder"></i>
+        </div>
+        <div class="menu-wrapper">
+          <div class="">
+            <div class="logo">
+              <a href="https://wbybl.github.io"><img src="https://wbybl.github.io/media/images/logoo.png" alt=""></a>
             </div>
-            
-              <img class="post-feature-image" src="https://wbybl.github.io/post-images/p1074-ba-xing-shu-du.jpg" alt="">
-            
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <p>这道题是一道dfs好题，很多人在题解里用了各种剪枝，以及一些奇奇怪怪的优化，还有大佬用的舞蹈链算法，蒟蒻不会舞蹈链，剪枝的效果也不是很好，只能用一些优化来过这道题了。</p>
+            <!-- start: .main-nav -->
+
+            <nav class="main-nav grid-container grid-parent">
+              <ul id="menu-header" class="menu gradient-effect">
+                
+                  <li class=""><a href="https://wbybl.github.io" class="menu">首页</a></li>
+                
+                
+                  <li class="" >
+                    <a href="/" class="menu">
+                      首页
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/archives" class="menu">
+                      归档
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/tags" class="menu">
+                      标签
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/post/about" class="menu">
+                      关于
+                    </a>
+                  </li>
+                
+              </ul>
+            </nav>
+            <!-- end: .main-nav -->
+            <div class="clear"></div>
+            <div class="border hide-on-tablet hide-on-mobile"></div>
+          </div>    
+          <div class="clear"></div>
+        </div>
+        <!-- end: .menu-wrapper -->
+        <div class="clear"></div>
+      </header>
+
+      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
+
+        <div class="center content">
+          <div class="featured-image cover" style="background-image: url('https://wbybl.github.io/post-images/p1074-ba-xing-shu-du.jpg');">
+            <div class="meta top"> 
+              <time class="meta-info" style="float:left;" datetime="2020-02-09"><i class="fa fa-calendar"></i><span class="lately">1 小时前</span></time>
+               
+               
+            </div>
+            <div class="info">
+              <div class="tags ">
+                
+              </div>
+              <h1 class="title ularge white bold">P1074 靶形数独</h1>
+            </div>
+          </div>
+        </div>  
+
+        <div class="epcl-page-wrapper">
+          <div class="left-content grid-70 np-mobile">
+            <article class="main-article post">
+              <section class="post-content">
+                <div class="text">
+                  <p>这道题是一道dfs好题，很多人在题解里用了各种剪枝，以及一些奇奇怪怪的优化，还有大佬用的舞蹈链算法，蒟蒻不会舞蹈链，剪枝的效果也不是很好，只能用一些优化来过这道题了。</p>
 <p>这道题虽然已经有很多题解了，但是我还是来交题解的原因是我觉得我的代码跑的，可以给大家提供一些关于搜索顺序的思路，<s>希望管理员不要认为我这是重复的解法</s>。不过我敢保证，我的代码跑的一定比除了打表题解以外的题解跑的快。</p>
 <p><s>说实话，这题普通剪枝也可以水过</s>，但是既然我们要追求速度，就不能仅仅局限于最优性、可行性剪枝。画了几张图以后发现一个规律，先搜索约束个数多的点，效率最高。这里的约束个数，就是这个点所在行、列、宫已经填好的数的个数之和。（具体内容见下图）</p>
 <p>所以我们就得到了一个思路，与处理好搜索顺序，也就是统计每个点的约束个数，先找到最多的，然后记录下来，假设它已经填好（把他所在的行、列、宫的约束个数加一），然后继续找第二多的就好了。最后按照这个顺序在每次dfs结束后找到下一个填数的点，就ok了，这样可以达到总效率888ms,已经非常快了。</p>
@@ -166,76 +170,218 @@ int main(){
 }
 </code></pre>
 
+                </div>
+                <div class="clear"></div>
+              </section>
+            </article>
+            <div class="clear"></div>
+
+            <section class="related section">
+              
+              <article class="prev grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/cf346d-robot-control.jpg');"></div>
+                 <a href="https://wbybl.github.io/post/cf346d-robot-control" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2020-02-09">2020-02-09</time>
+                  <h4 class="title white no-margin">CF346D 【Robot Control】</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://wbybl.github.io/media/images/left-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+              
+              <article class="next grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/uva1343-xuan-zhuan-you-xi-the-rotation-game.jpg');"></div>
+                 <a href="https://wbybl.github.io/post/uva1343-xuan-zhuan-you-xi-the-rotation-game" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2020-02-09">2020-02-09</time>
+                  <h4 class="title white no-margin">UVA1343 【旋转游戏 The Rotation Game】</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://wbybl.github.io/media/images/right-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+
+                <div class="clear"></div>
+            </section>
+
+              <div class="clear"></div>
+
+              <div id="comments" class="bg-white hosted ">
+
+              
+                <p>请到客户端“主题--自定义配置--valine”中填入ID和KEY</p>
+              
+                <div class="clear"></div>
               </div>
-              <div class="toc-container">
-                
-              </div>
+
+              <div class="clear"></div>
             </div>
-          </article>
+          </div>
+      </main>
+
+          <footer id="footer" class="grid-container">
+        <div class="widgets row gradient-effect">
+            <div class="default-sidebar border-effect">
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="tag_cloud-2" class="widget widget_epcl_posts_thumbs underline-effect">
+                  <h4 class="widget-title title white bordered">最新文章</h4>
+                  
+                  
+                  <article class="item post-0 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://wbybl.github.io/post/cf346d-robot-control" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display: block;background-image: url('https://wbybl.github.io/post-images/cf346d-robot-control.jpg');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2020-02-09">2020-02-09</time>
+                      <h4 class="title usmall">
+                        <a href="https://wbybl.github.io/post/cf346d-robot-control">CF346D 【Robot Control】</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  <article class="item post-1 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://wbybl.github.io/post/p1074-ba-xing-shu-du" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display: block;background-image: url('https://wbybl.github.io/post-images/p1074-ba-xing-shu-du.jpg');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2020-02-09">2020-02-09</time>
+                      <h4 class="title usmall">
+                        <a href="https://wbybl.github.io/post/p1074-ba-xing-shu-du">P1074 靶形数独</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  <article class="item post-2 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://wbybl.github.io/post/uva1343-xuan-zhuan-you-xi-the-rotation-game" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display: block;background-image: url('https://wbybl.github.io/post-images/uva1343-xuan-zhuan-you-xi-the-rotation-game.jpg');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2020-02-09">2020-02-09</time>
+                      <h4 class="title usmall">
+                        <a href="https://wbybl.github.io/post/uva1343-xuan-zhuan-you-xi-the-rotation-game">UVA1343 【旋转游戏 The Rotation Game】</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  
+                  <div class="clear"></div>
+                </section>
+              </div>
+
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="tag_cloud-2" class="widget widget_tag_cloud underline-effect">
+                  <h4 class="widget-title title white bordered">标签云</h4>
+                  <div class="tagcloud">
+                    
+                  </div>
+                  <div class="clear"></div>
+                </section>
+              </div>
+
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="epcl_about-2" class="widget widget_epcl_about underline-effect">
+                  <h4 class="widget-title title white bordered">关于我</h4>
+                  <div class="avatar">
+                    <a href="" class="translate-effect thumb"><span class="fullimage cover" style="background-image: url(https://wbybl.github.io/images/avatar.png);"></span></a>
+                  </div>
+                  <div class="info">
+                    <h4 class="title small author-name gradient-effect no-margin"><a href="">Gridea</a></h4>
+                    <p class="founder"></p>
+                    <div class="social">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                    </div> 
+                  </div>
+                  <div class="clear"></div>
+                  </section>
+              </div>
+
+            </div>
+            <div class="clear"></div>
         </div>
 
+        <div class="logo">
+          <a href="https://wbybl.github.io"><img class="" src="https://wbybl.github.io/media/images/logo.png" alt=""></a>
+        </div>
+        <p class="published border-effect">
+          ©2019 共 4 篇文章
+          <br/>
+          Theme <a href="https://gridea.dev/" target="_blank">「breek」</a> Powered by <a href="https://gridea.dev/" target="_blank">「Gridea」</a>
+        </p>
         
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://wbybl.github.io/post/uva1343-xuan-zhuan-you-xi-the-rotation-game">
-              <h3 class="post-title">
-                UVA1343 【旋转游戏 The Rotation Game】
-              </h3>
-            </a>
-          </div>
-        
+        <a href="javascript:void(0)" id="back-to-top" class="epcl-button dark" style="display:none">
+          <i class="fa fa-arrow"></i>
+        </a>
+    </footer>
+    <div class="clear"></div>
 
-        
-
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-  <a class="rss" href="https://wbybl.github.io/atom.xml" target="_blank">
-    <i class="ri-rss-line"></i> RSS
-  </a>
-</div>
-
-      </div>
-    </div>
-
-    <script>
-      hljs.initHighlightingOnLoad()
-
-      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
-
-      // This should probably be throttled.
-      // Especially because it triggers during smooth scrolling.
-      // https://lodash.com/docs/4.17.10#throttle
-      // You could do like...
-      // window.addEventListener("scroll", () => {
-      //    _.throttle(doThatStuff, 100);
-      // });
-      // Only not doing it here to keep this Pen dependency-free.
-
-      window.addEventListener("scroll", event => {
-        let fromTop = window.scrollY;
-
-        mainNavLinks.forEach((link, index) => {
-          let section = document.getElementById(decodeURI(link.hash).substring(1));
-          let nextSection = null
-          if (mainNavLinks[index + 1]) {
-            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-          }
-          if (section.offsetTop <= fromTop) {
-            if (nextSection) {
-              if (nextSection.offsetTop > fromTop) {
-                link.classList.add("current");
-              } else {
-                link.classList.remove("current");    
-              }
-            } else {
-              link.classList.add("current");
+      <script type="text/javascript">
+       jQuery(document).ready(function($){
+          $("photos img").each(function(){
+              var _a = $("<a></a>").attr("href",this.src);
+              $(this).wrap("<div class='photo'></div>").wrap(_a);
+          })
+          $("figure img").each(function(){
+              var _b = $("<a></a>").attr("href",this.src);
+              $(this).wrap(_b);
+          })
+          isImgLoad(function(){
+            var photos = document.querySelector('photos');
+            if(photos){
+              waterfall(photos);
             }
-          } else {
-            link.classList.remove("current");
-          }
+            $(window).resize(function() {
+             if(photos){
+                  waterfall(photos);
+            }
+          });
         });
+        var t_img;
+        var isLoad = true;
+        function isImgLoad(callback){
+          $('photos img').each(function(){
+            if(this.height === 0){
+              isLoad = false;
+              return false;
+            }
+          });
+          if(isLoad){
+            clearTimeout(t_img);
+            callback();
+          }else{
+            isLoad = true;
+            t_img = setTimeout(function(){
+              isImgLoad(callback);
+            },500);
+          }
+        }
       });
+      </script>
 
-    </script>
+    </div>
+    <!-- end: #wrapper -->
   </body>
 </html>
