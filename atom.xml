@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wbybl.github.io</id>
     <title>Gridea</title>
-    <updated>2020-02-09T07:09:00.120Z</updated>
+    <updated>2020-02-09T07:14:49.633Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wbybl.github.io"/>
     <link rel="self" href="https://wbybl.github.io/atom.xml"/>
@@ -80,134 +80,6 @@ int main(){
         <title type="html"><![CDATA[luogu P3358 最长k可重区间集问题]]></title>
         <id>https://wbybl.github.io/post/luogu-p3358-zui-chang-k-ke-chong-qu-jian-ji-wen-ti</id>
         <link href="https://wbybl.github.io/post/luogu-p3358-zui-chang-k-ke-chong-qu-jian-ji-wen-ti">
-        </link>
-        <updated>2020-02-09T06:55:18.000Z</updated>
-        <content type="html"><![CDATA[<p>最大费用最大流，建模方法：</p>
-<p>黑线、紫线都是流量k，费用0，保障图的连通性，以及只能走k次</p>
-<p>红线代表一个给定的区间，流量1代表只能取一次，费用为区间长度代表走过这条区间，可以获得区间长度的价值<br>
-<img src="https://wbybl.github.io/post-images/1581231481297.png" alt="" loading="lazy"><br>
-跑最大费用最大流（开始时把边权取反，跑最小费用最大流，然后再取反）</p>
-<p>需要离散化😂</p>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;cstring&gt;
-#include&lt;queue&gt;
-#include&lt;algorithm&gt;
-using namespace std;
-struct edge{
-    long long v,w,cost,fail;
-    edge(){
-    }
-    edge(long long a,long long b,long long c,long long d){
-        v=a;
-        w=b;
-        cost=c;
-        fail=d;
-    }
-}e[200100];
-long long n,k,s,t,m,incf[200100],pre[200100],vis[200100],dis[200100],head[200100],len,last[200100];
-long long Left[200100],Right[200010],u[200100],cnt,U[200100],val[200100];
-void add(long long x,long long y,long long z,long long c){
-    e[len]=edge(y,z,c,head[x]);
-    head[x]=len++;
-    e[len]=edge(x,0,-c,head[y]);
-    head[y]=len++;
-}
-bool spfa(){
-    queue&lt;long long&gt; q;
-    memset(vis,0,sizeof(vis));
-    memset(dis,0x3f,sizeof(dis)); 
-    q.push(s);
-    dis[s]=0;
-    vis[s]=1;
-    incf[s]=(long long)1e17;
-    while(!q.empty()){
-//        cout&lt;&lt;q.front()&lt;&lt;endl;
-        long long now=q.front();
-        vis[now]=0;
-        q.pop();
-        for(long long i=head[now];~i;i=e[i].fail){
-        //    cout&lt;&lt;i&lt;&lt;endl;
-            if(!e[i].w)continue;
-            if(dis[e[i].v]&gt;dis[now]+e[i].cost){
-                dis[e[i].v]=dis[now]+e[i].cost;
-                incf[e[i].v]=min(incf[now],e[i].w);
-                pre[e[i].v]=i;
-                last[e[i].v]=now;
-            //    cout&lt;&lt;&quot;pre of&quot;&lt;&lt;e[i].v&lt;&lt;&quot; is&quot;&lt;&lt;now&lt;&lt;endl;
-                if(vis[e[i].v]==0){
-                    vis[e[i].v]=1;
-                    q.push(e[i].v);
-                }
-            }
-        } 
-    }
-    //cout&lt;&lt;1&lt;&lt;endl;
-    if(dis[t]&gt;=(long long)(1e17))return 0;
-    else return 1;
-}
-long long maxflow=0;
-long long ans=0;
-long long inf=(long long)1e17;
-void update(){
-    //cout&lt;&lt;&quot;--------------------------&quot;&lt;&lt;endl;
-    long long now=t;
-    while(now!=s){
-    //    cout&lt;&lt;now&lt;&lt;&quot; &quot;&lt;&lt;last[now]&lt;&lt;endl;
-        long long i=pre[now];
-        e[i].w-=incf[t];
-        e[i^1].w+=incf[t];
-        now=last[now];
-    } 
-    maxflow+=incf[t];
-    ans+=dis[t]*incf[t];
-    //cout&lt;&lt;ans&lt;&lt;endl;
-//    cout&lt;&lt;ans&lt;&lt;endl;
-}   
-int main(){
-    cin&gt;&gt;n&gt;&gt;k;
-    memset(head,-1,sizeof(head)); 
-    for(int i=1;i&lt;=n;i++){
-        cin&gt;&gt;Left[i]&gt;&gt;Right[i];
-        u[++cnt]=Left[i];
-        u[++cnt]=Right[i];
-        val[i]=Right[i]-Left[i];
-    }
-    sort(u+1,u+cnt+1);
-    int cnt1=0;
-    for(int i=1;i&lt;=cnt;i++){
-        if(u[i]!=u[i-1]){
-            U[++cnt1]=u[i];
-        }
-    }
-    for(int i=1;i&lt;=n;i++){
-        for(int j=1;j&lt;=cnt1;j++){
-            if(Left[i]==U[j])Left[i]=j;
-            if(Right[i]==U[j])Right[i]=j;
-        }
-    }
-    long long Max=0;
-    for(int i=1;i&lt;=n;i++){
-        Max=max(Max,Right[i]);
-        add(Left[i],Right[i],1,-val[i]);
-    }
-    n=Max;
-    s=0;
-    t=Max+1;
-    for(int i=1;i&lt;n;i++){
-        add(i,i+1,k,0);
-    }
-    add(s,1,k,0);
-    add(n,t,k,0);
-    while(spfa())update();
-    cout&lt;&lt;-ans&lt;&lt;endl;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[P3358 最长k可重区间集问题]]></title>
-        <id>https://wbybl.github.io/post/p3358-zui-chang-k-ke-chong-qu-jian-ji-wen-ti</id>
-        <link href="https://wbybl.github.io/post/p3358-zui-chang-k-ke-chong-qu-jian-ji-wen-ti">
         </link>
         <updated>2020-02-09T06:55:18.000Z</updated>
         <content type="html"><![CDATA[<p>最大费用最大流，建模方法：</p>
