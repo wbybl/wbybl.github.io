@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://wbybl.github.io/favicon.ico?v=1581221751965">
+<link rel="shortcut icon" href="https://wbybl.github.io/favicon.ico?v=1581221961100">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://wbybl.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://wbybl.github.io">
-        <img class="avatar" src="https://wbybl.github.io/images/avatar.png?v=1581221751965" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://wbybl.github.io/images/avatar.png?v=1581221961100" alt="" width="32px" height="32px">
       </a>
       <a href="https://wbybl.github.io">
         <h1 class="site-title">Gridea</h1>
@@ -91,6 +91,17 @@
 <p>什么是估价呢，估价就是计算一个当前方案的价值，找一个比较理想的先搜索，这样理论上可以加速搜索的过程，一个好的估价函数可以让你的搜索直接找到正解（虽然不大可能）</p>
 <p>这道题就是将上下左右的移动当成一种状态，每次搜索动哪一根，估价函数为中间的八个格子有几个相等的（原因是题目求最少几次可以让中间的变成一样的数），每次迭代加深就可以了。</p>
 <p>这题有很多细节，比如说题目中的读入非常玄学，按照1~24的顺序从上往下，从左往右读，这就需要一些处理来计算出每一根上面的数存在哪里。其他细节详见代码注释。</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+using namespace std;
+#define HU int a,b;
+#define ZHENG cin&gt;&gt;a&gt;&gt;b;
+#define YANG int c=a+b;
+#define AK cout&lt;&lt;c&lt;&lt;endl;
+#define IOI return 0;
+int main(){
+	HU ZHENG YANG AK IOI
+}
+</code></pre>
 
           </div>
         </div>
