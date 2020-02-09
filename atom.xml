@@ -2,13 +2,105 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wbybl.github.io</id>
     <title>Gridea</title>
-    <updated>2020-02-09T04:59:48.832Z</updated>
+    <updated>2020-02-09T05:01:04.388Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wbybl.github.io"/>
     <link rel="self" href="https://wbybl.github.io/atom.xml"/>
     <logo>https://wbybl.github.io/images/avatar.png</logo>
     <icon>https://wbybl.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[CF346D 【Robot Control】]]></title>
+        <id>https://wbybl.github.io/post/cf346d-robot-control</id>
+        <link href="https://wbybl.github.io/post/cf346d-robot-control">
+        </link>
+        <updated>2020-02-09T05:00:17.000Z</updated>
+        <content type="html"><![CDATA[<p>这道题我们老师上课讲了，回来琢磨了琢磨，还是不太会，又借鉴了一下<a href="https://www.cnblogs.com/huibixiaoxing/p/7715898.html">博客</a></p>
+<p>话说这道题真坑，首先显然是可以dp的，方程为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo>[</mo><mi>u</mi><mo>]</mo><mo>=</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo>(</mo><mi>m</mi><mi>i</mi><mi>n</mi><mo>(</mo><mi>d</mi><mi>p</mi><mo>[</mo><mi>v</mi><mo>]</mo><mo>+</mo><mn>1</mn><mo>)</mo><mo separator="true">,</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>d</mi><mi>p</mi><mo>[</mo><mi>v</mi><mo>]</mo><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">dp[u]=min(min(dp[v]+1),max(dp[v]))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">]</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></p>
+<p>这里dp[i]表示第i个点到终点需要的指令数量，</p>
+<p>其实这个方程是可以直接 BFS 来算的...</p>
+<p>注意到 min(dp(v) + 1) 实际上就是一个边权为 1 的最短路, 也就是 BFS;</p>
+<p>而考虑后一项 maxfdp(v)g, 其实是在 BFS 时最后一个更新它的节点去更新它时没有代价.<br>
+因为 BFS 的正确性要求队列中的元素距离是不降的, 所以一旦<br>
+某个节点被最后一个点更新, 那么我们需要把它加入队首而非队尾.<br>
+这个做法是 O(N + M) 的, 因为每个节点我们只需用它更新一次. 一样的道理, 每个点只会入队至多两次</p>
+<p>这里我们借助spfa来完成dp</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+using namespace std;
+int dp[2000000], head[1100000], head2[1100000], len, len2;
+struct edge{
+	int v, fail;
+	edge(){}
+	edge(int a, int c){
+		v = a;
+		fail = c;
+	}
+}e[2200000],e2[2200000];
+void add(int a, int b){
+	e[len] = edge(b, head[a]);
+	head[a] = len++;
+}
+void Add(int a, int b){
+	e2[len2] = edge(a, head2[b]);
+	head2[b] = len2++;
+}
+int vis[2200000];
+queue&lt;int&gt; q;
+int main(){
+	ios::sync_with_stdio(0);
+	memset(head, -1, sizeof(head));
+	memset(head2, -1, sizeof(head2));
+	int n, m, s, t;
+	cin &gt;&gt; n &gt;&gt; m;
+	for(int i = 1; i &lt;= m; i++){
+		int x, y, z;
+		cin &gt;&gt; x &gt;&gt; y;
+		add(x, y);
+		Add(x, y);//建正图，反图，方便dp
+	} 
+	cin &gt;&gt; s &gt;&gt; t;
+	for(int i = 1; i &lt;= n + 20; i++){//初始化
+		dp[i] = 1147483646;
+	}
+	vis[t] = 1;
+	dp[t] = 0;
+	q.push(t);
+	while(!q.empty()){//spfa模板稍加改动
+		int now = q.front();
+		q.pop();
+		vis[now] = 0;
+      //这里的两个for就分别对应前面转移方程的两种情况
+		for(int i = head2[now]; ~i; i = e2[i].fail){
+			if(dp[e2[i].v] &gt; dp[now] + 1){
+				dp[e2[i].v] = dp[now] + 1;
+				if(!vis[e2[i].v]){
+					vis[e2[i].v] = 1;
+					q.push(e2[i].v);
+				}
+			} 
+		}
+		int Max = 0;
+		for(int i = head[now]; ~i; i = e[i].fail){
+			Max = max(Max, dp[e[i].v]);
+		}
+		if(dp[now] &gt; Max){
+			dp[now] = Max;
+			if(!vis[now]){
+				vis[now] = 1;
+				q.push(now);
+			}
+		}
+	}
+	if(dp[s] != 1147483646)
+	cout &lt;&lt; dp[s] &lt;&lt; endl;
+	else cout &lt;&lt; -1 &lt;&lt; endl;
+	return 0;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P1074 靶形数独]]></title>
         <id>https://wbybl.github.io/post/p1074-ba-xing-shu-du</id>
