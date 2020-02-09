@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>计算几何 | Gridea</title>
+<title>luoguP4047[JSOI2010]部落划分 | Gridea</title>
 <meta name="description" content="" />
 <link rel="shortcut icon" href="https://wbybl.github.io/favicon.ico">
 <link rel="stylesheet" href="https://wbybl.github.io/styles/main.css">
@@ -13,11 +13,11 @@
 <script src="https://wbybl.github.io/media/js/pace.min.js"></script>
 <script src="https://wbybl.github.io/media/js/view-image.min.js"></script>
 <script src="https://wbybl.github.io/media/js/functions.js"></script>
+    <script src="https://wbybl.github.io/media/js/waterfall.min.js"></script>
+    <script src="https://wbybl.github.io/media/js/prism.min.js"></script>
+    
   </head>
   <body>
-    <!-- start: #wrapper -->
-    <div class="wrapper">
-      
             <header id="header" class="grid-container">
         <!-- start: .menu-wrapper -->
         <div class="menu-mobile"> 
@@ -72,45 +72,133 @@
         <div class="clear"></div>
       </header>
 
-      <main id="home" class="main fullcover no-sidebar content">
-        <div class="grid-container module-wrapper enable-masonry aos-init aos-animate" data-aos="fade-up">
-        <div class="epcl-page-wrapper">
-          <div class="left-content grid-70 np-mobile widget_epcl_related_articles">
-                
-            <!-- start: .articles -->
-            <div class="main-article post">
-  <h2 class="year"># 计算几何</h2>
-    
-      <article class="item default grid-33 tablet-grid-50 np-mobile">
-        <a href="https://wbybl.github.io/post/er-wei-tu-bao-mo-ban-luogup2742" class="thumb hover-effect">
-          <span class="fullimage cover" style="display: block;background-image: url('https://wbybl.github.io/post-images/er-wei-tu-bao-mo-ban-luogup2742.jpg');"></span>
-        </a>
-        <div class="info gradient-effect">
-          <time datetime="2020-02-09">2020-02-09</time>
-          <h4 class="title usmall">
-            <a href="https://wbybl.github.io/post/er-wei-tu-bao-mo-ban-luogup2742">二维凸包模板 luoguP2742</a>
-          </h4>
-        </div>
-      </article>
+      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
 
-    
-    <div class="clear"></div>
-</div>
-            <!-- end: .articles -->
-            
-                        <div class="epcl-pagination section">
-              <div class="nav">
-                
-                
-              </div>
+        <div class="center content">
+          <div class="featured-image cover" style="background-image: url('https://wbybl.github.io/post-images/luogup4047jsoi2010bu-luo-hua-fen.jpg');">
+            <div class="meta top"> 
+              <time class="meta-info" style="float:left;" datetime="2020-02-09"><i class="fa fa-calendar"></i><span class="lately">7 分钟前</span></time>
+               
+               
             </div>
-            
+            <div class="info">
+              <div class="tags ">
+                
+                      <a href="https://wbybl.github.io/tag/ARqI9J8Wq" class="ctag ctag-0 ctag-ARqI9J8Wq" aria-label="">最小生成树</a>
+                    
+              </div>
+              <h1 class="title ularge white bold">luoguP4047[JSOI2010]部落划分</h1>
+            </div>
           </div>
+        </div>  
+
+        <div class="epcl-page-wrapper">
+          <div class="left-content grid-70 np-mobile">
+            <article class="main-article post">
+              <section class="post-content">
+                <div class="text">
+                  <p>神奇的最小生成树题😀<br>
+<img src="https://wbybl.github.io/post-images/1581231705702.png" alt="" loading="lazy"><br>
+n^2枚举每一个点，计算出每两点之间的距离<br>
+因为没合并一次，就会减少一个部落，所以我们需要合并n-k次<br>
+根据贪心的思想，每次我们需要挑出距离最近的两个点合并，否则答案就会变小<br>
+所以我们预先排个序，然后每次从小到大找没有连接起来的点，合并即可<br>
+是不是特别像kruskal<br>
+所以直接跑kruskal模板，找出n-k条边即可，最后输出下一条没有合并的边权，也就是最小距离</p>
+<pre><code>#include &lt;bits/stdc++.h&gt;
+#include&lt;cstdio&gt;
+using namespace std;
+int n,m;
+int x[1001000],y[1000100];
+struct edge{
+    int a,b;
+    double c;
+}e[2001000];
+double dis(int x,int y,int x1,int y1){
+    return sqrt((x-x1)*(x-x1)+(y-y1)*(y-y1));
+}
+bool cmp(edge a,edge b){
+    return a.c&lt;b.c;
+}
+int fa[1001000];
+int get(int x){
+    if(fa[x]==x)return x;
+    return fa[x]=get(fa[x]);
+}
+int main(){
+    cin&gt;&gt;n&gt;&gt;m;
+    for(int i=1;i&lt;=n;i++){
+        cin&gt;&gt;x[i]&gt;&gt;y[i];
+        fa[i]=i;
+    }
+    int cnt=0;
+    for(int i=1;i&lt;=n;i++){
+        for(int j=i+1;j&lt;=n;j++){
+            e[++cnt].a=i;
+            e[cnt].b=j;
+            e[cnt].c=dis(x[i],y[i],x[j],y[j]);
+        }
+    }
+    sort(e+1,e+cnt+1,cmp);
+    int tot=0;
+    for(int i=1;i&lt;=cnt;i++){
+        //cout&lt;&lt;e[i].a&lt;&lt;&quot; &quot;&lt;&lt;e[i].b&lt;&lt;&quot; &quot;&lt;&lt;e[i].c&lt;&lt;endl;
+        int A=get(e[i].a),B=get(e[i].b);
+        if(A!=B){
+            tot++;
+            fa[A]=B;
+        }
+        if(tot==n-m+1){
+            printf(&quot;%.2lf&quot;,e[i].c);            
+            return 0;
+        }
+    }
+    return 0;
+}
+</code></pre>
+
+                </div>
+                <div class="clear"></div>
+              </section>
+            </article>
+            <div class="clear"></div>
+
+            <section class="related section">
+              
+              
+              <article class="next grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/luogu-p3358-zui-chang-k-ke-chong-qu-jian-ji-wen-ti.jpg');"></div>
+                 <a href="https://wbybl.github.io/post/luogu-p3358-zui-chang-k-ke-chong-qu-jian-ji-wen-ti" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2020-02-09">2020-02-09</time>
+                  <h4 class="title white no-margin">luogu P3358 最长k可重区间集问题</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://wbybl.github.io/media/images/right-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+
+                <div class="clear"></div>
+            </section>
+
+              <div class="clear"></div>
+
+              <div id="comments" class="bg-white hosted ">
+
+              
+                <p>请到客户端“主题--自定义配置--valine”中填入ID和KEY</p>
+              
+                <div class="clear"></div>
+              </div>
+
+              <div class="clear"></div>
+            </div>
           </div>
-        </div>
       </main>
 
-        <footer id="footer" class="grid-container">
+          <footer id="footer" class="grid-container">
         <div class="widgets row gradient-effect">
             <div class="default-sidebar border-effect">
               <div class="grid-33 tablet-grid-50 mobile-grid-100">
@@ -243,6 +331,50 @@
         </a>
     </footer>
     <div class="clear"></div>
+
+      <script type="text/javascript">
+       jQuery(document).ready(function($){
+          $("photos img").each(function(){
+              var _a = $("<a></a>").attr("href",this.src);
+              $(this).wrap("<div class='photo'></div>").wrap(_a);
+          })
+          $("figure img").each(function(){
+              var _b = $("<a></a>").attr("href",this.src);
+              $(this).wrap(_b);
+          })
+          isImgLoad(function(){
+            var photos = document.querySelector('photos');
+            if(photos){
+              waterfall(photos);
+            }
+            $(window).resize(function() {
+             if(photos){
+                  waterfall(photos);
+            }
+          });
+        });
+        var t_img;
+        var isLoad = true;
+        function isImgLoad(callback){
+          $('photos img').each(function(){
+            if(this.height === 0){
+              isLoad = false;
+              return false;
+            }
+          });
+          if(isLoad){
+            clearTimeout(t_img);
+            callback();
+          }else{
+            isLoad = true;
+            t_img = setTimeout(function(){
+              isImgLoad(callback);
+            },500);
+          }
+        }
+      });
+      </script>
+
     </div>
     <!-- end: #wrapper -->
   </body>
