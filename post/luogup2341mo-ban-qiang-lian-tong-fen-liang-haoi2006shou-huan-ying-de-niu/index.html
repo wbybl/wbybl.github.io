@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>我的阅读 | 我不要爆零的博客</title>
+<title>luoguP2341【模板】强连通分量 / [HAOI2006]受欢迎的牛 | 我不要爆零的博客</title>
 <meta name="description" content="" />
 <link rel="shortcut icon" href="https://wbybl.github.io/favicon.ico">
 <link rel="stylesheet" href="https://wbybl.github.io/styles/main.css">
@@ -13,14 +13,11 @@
 <script src="https://wbybl.github.io/media/js/pace.min.js"></script>
 <script src="https://wbybl.github.io/media/js/view-image.min.js"></script>
 <script src="https://wbybl.github.io/media/js/functions.js"></script>
-    <meta name="referrer" content="never">
-    <link rel="stylesheet" href="https://wbybl.github.io/media/js/Bmdb.min.css">
-    <script type='text/javascript' src='https://wbybl.github.io/media/js/Bmdb.min.js'></script>
+    <script src="https://wbybl.github.io/media/js/waterfall.min.js"></script>
+    <script src="https://wbybl.github.io/media/js/prism.min.js"></script>
+    
   </head>
   <body>
-    <!-- start: #wrapper -->
-    <div class="wrapper">
-      
             <header id="header" class="grid-container">
         <!-- start: .menu-wrapper -->
         <div class="menu-mobile"> 
@@ -75,14 +72,161 @@
         <div class="clear"></div>
       </header>
 
-      <main id="friends" class="main fullcover no-sidebar content">
-        <div class="grid-container module-wrapper enable-masonry aos-init aos-animate" data-aos="fade-up">
+      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
+
+        <div class="center content">
+          <div class="featured-image cover" style="background-image: url('https://wbybl.github.io/post-images/luogup2341mo-ban-qiang-lian-tong-fen-liang-haoi2006shou-huan-ying-de-niu.jpg');">
+            <div class="meta top"> 
+              <time class="meta-info" style="float:left;" datetime="2020-02-10"><i class="fa fa-calendar"></i><span class="lately">4 分钟前</span></time>
+               
+               
+            </div>
+            <div class="info">
+              <div class="tags ">
+                
+                      <a href="https://wbybl.github.io/tag/zGWnU83Kd" class="ctag ctag-0 ctag-zGWnU83Kd" aria-label="">tarjan</a>
+                    
+              </div>
+              <h1 class="title ularge white bold">luoguP2341【模板】强连通分量 / [HAOI2006]受欢迎的牛</h1>
+            </div>
+          </div>
+        </div>  
+
         <div class="epcl-page-wrapper">
-          <div class="section-content" style="margin-top:3em;"></div>
-        </div>
-        </div>
+          <div class="left-content grid-70 np-mobile">
+            <article class="main-article post">
+              <section class="post-content">
+                <div class="text">
+                  <p>tarjan就不讲了<br>
+首先缩点，然后发现明星只可能是缩点重新建图后，出度为零的点，否则他自己无法欢迎他自己<br>
+但是如果出度为零的点&gt;=2个，就没有受欢迎的牛了</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;stack&gt;
+using namespace std;
+int color[200000],cnt=0;
+struct edge{
+    int v,fail;
+    edge(){
+    }
+    edge(int a,int b){
+        v=a;
+        fail=b;
+    }
+}e[400000];
+int n,m,head[200000],len;
+int N[200000];
+void init(){
+    len=0;
+    memset(head,-1,sizeof(head));
+}
+int dfn[200000],low[200000],vis[200000];
+void add(int a,int b){
+    e[len]=edge(b,head[a]);
+    head[a]=len++;
+}
+int Time;
+stack&lt;int&gt; s;
+void calc(){
+	int t=s.top();
+	s.pop();
+	color[t]=cnt;
+	N[cnt]++;
+	vis[t]=0;
+} 
+void tarjan(int x){
+	vis[x]=1;
+	s.push(x);
+	dfn[x]=low[x]=++Time;
+	for(int i=head[x];~i;i=e[i].fail){
+		if(!dfn[e[i].v]){
+			tarjan(e[i].v);
+			low[x]=min(low[x],low[e[i].v]);
+		}else if(vis[e[i].v])low[x]=min(low[x],dfn[e[i].v]);
+	}
+	if(dfn[x]==low[x]){
+		cnt++;
+		while(s.top()!=x)calc();
+		calc();
+	}
+}
+int in[100000]; 
+int x[100000],y[100000];
+int main(){
+	cin&gt;&gt;n&gt;&gt;m;
+	init();
+	for(int i=1;i&lt;=m;i++){
+		cin&gt;&gt;x[i]&gt;&gt;y[i];
+		add(x[i],y[i]);
+	}
+	for(int i=1;i&lt;=n;i++){
+		if(!color[i])tarjan(i);
+	}
+	int ans=0;
+	int tot=0;
+	for(int i=1;i&lt;=m;i++){
+	//	cout&lt;&lt;color[i]&lt;&lt;endl;
+		if(color[x[i]]!=color[y[i]]){
+			in[color[x[i]]]++;
+	//		cout&lt;&lt;color[x[i]]&lt;&lt;&quot; to&quot;&lt;&lt;color[y[i]]&lt;&lt;endl;
+		}
+	}	
+	for(int i=1;i&lt;=cnt;i++){
+		if(!in[i]){
+			tot++;
+			ans=N[i];
+		}
+	}
+//	cout&lt;&lt;cnt&lt;&lt;endl;
+	if(tot==1)
+	cout&lt;&lt;ans&lt;&lt;endl;
+	else cout&lt;&lt;0&lt;&lt;endl;
+	return 0;
+}
+</code></pre>
+
+                </div>
+                <div class="clear"></div>
+              </section>
+            </article>
+            <div class="clear"></div>
+
+            <section class="related section">
+              
+              
+              <article class="next grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/luogup1471-fang-chai.jpg');"></div>
+                 <a href="https://wbybl.github.io/post/luogup1471-fang-chai" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2020-02-09">2020-02-09</time>
+                  <h4 class="title white no-margin">luoguP1471 方差</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://wbybl.github.io/media/images/right-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+
+                <div class="clear"></div>
+            </section>
+
+              <div class="clear"></div>
+
+              <div id="comments" class="bg-white hosted ">
+
+              
+                <p>请到客户端“主题--自定义配置--valine”中填入ID和KEY</p>
+              
+                <div class="clear"></div>
+              </div>
+
+              <div class="clear"></div>
+            </div>
+          </div>
       </main>
-        <footer id="footer" class="grid-container">
+
+          <footer id="footer" class="grid-container">
         <div class="widgets row gradient-effect">
             <div class="default-sidebar border-effect">
               <div class="grid-33 tablet-grid-50 mobile-grid-100">
@@ -227,15 +371,50 @@
         </a>
     </footer>
     <div class="clear"></div>
-    <script>
-    new Bmdb({
-      type: 'books',
-      selector: '.section-content',
-      secret: '0bba46738324c778ad2da662837c14d2c1e5bceb22e3729febc9fd3677bdcea5',
-      noMoreText: '没有更多数据了',
-      limit: 30
-    })
-    </script>
+
+      <script type="text/javascript">
+       jQuery(document).ready(function($){
+          $("photos img").each(function(){
+              var _a = $("<a></a>").attr("href",this.src);
+              $(this).wrap("<div class='photo'></div>").wrap(_a);
+          })
+          $("figure img").each(function(){
+              var _b = $("<a></a>").attr("href",this.src);
+              $(this).wrap(_b);
+          })
+          isImgLoad(function(){
+            var photos = document.querySelector('photos');
+            if(photos){
+              waterfall(photos);
+            }
+            $(window).resize(function() {
+             if(photos){
+                  waterfall(photos);
+            }
+          });
+        });
+        var t_img;
+        var isLoad = true;
+        function isImgLoad(callback){
+          $('photos img').each(function(){
+            if(this.height === 0){
+              isLoad = false;
+              return false;
+            }
+          });
+          if(isLoad){
+            clearTimeout(t_img);
+            callback();
+          }else{
+            isLoad = true;
+            t_img = setTimeout(function(){
+              isImgLoad(callback);
+            },500);
+          }
+        }
+      });
+      </script>
+
     </div>
     <!-- end: #wrapper -->
   </body>
