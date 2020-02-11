@@ -2,13 +2,28 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wbybl.github.io</id>
     <title>我不要爆零的博客</title>
-    <updated>2020-02-10T06:12:32.656Z</updated>
+    <updated>2020-02-11T11:38:45.388Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wbybl.github.io"/>
     <link rel="self" href="https://wbybl.github.io/atom.xml"/>
     <logo>https://wbybl.github.io/images/avatar.png</logo>
     <icon>https://wbybl.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 我不要爆零的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[2-SAT]]></title>
+        <id>https://wbybl.github.io/post/2-sat</id>
+        <link href="https://wbybl.github.io/post/2-sat">
+        </link>
+        <updated>2020-02-11T11:19:55.000Z</updated>
+        <content type="html"><![CDATA[<p>有两个集合，给出n组限定关系，每一个元素要放进一个集合里，限制关系（a,b)为一个集合选择a就不能选择b。输出一种分组方案</p>
+<p>不放假设元素a对应的集合中的另一个元素为a'<br>
+矛盾关系可以转化为：选择a就必须选择b'<br>
+同样，选择b就必须选择a'</p>
+<p>这个”必须“关系是可以传递的，所以可以用图论模型来做</p>
+<p>对于一个强连通分量中的所有元素，只要一个选了，就必须选择剩下所有的元素</p>
+<p>如果存在a使得a和a'在一个强联通分量里，无解</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[luoguP2341【模板】强连通分量 / [HAOI2006]受欢迎的牛]]></title>
         <id>https://wbybl.github.io/post/luogup2341mo-ban-qiang-lian-tong-fen-liang-haoi2006shou-huan-ying-de-niu</id>
