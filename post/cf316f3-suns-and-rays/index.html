@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>最短路 | 我不要爆零的博客</title>
+<title>CF316F3 【Suns and Rays】 | 我不要爆零的博客</title>
 <meta name="description" content="" />
 <link rel="shortcut icon" href="https://wbybl.github.io/favicon.ico">
 <link rel="stylesheet" href="https://wbybl.github.io/styles/main.css">
@@ -13,11 +13,11 @@
 <script src="https://wbybl.github.io/media/js/pace.min.js"></script>
 <script src="https://wbybl.github.io/media/js/view-image.min.js"></script>
 <script src="https://wbybl.github.io/media/js/functions.js"></script>
+    <script src="https://wbybl.github.io/media/js/waterfall.min.js"></script>
+    <script src="https://wbybl.github.io/media/js/prism.min.js"></script>
+    
   </head>
   <body>
-    <!-- start: #wrapper -->
-    <div class="wrapper">
-      
             <header id="header" class="grid-container">
         <!-- start: .menu-wrapper -->
         <div class="menu-mobile"> 
@@ -72,45 +72,220 @@
         <div class="clear"></div>
       </header>
 
-      <main id="home" class="main fullcover no-sidebar content">
-        <div class="grid-container module-wrapper enable-masonry aos-init aos-animate" data-aos="fade-up">
-        <div class="epcl-page-wrapper">
-          <div class="left-content grid-70 np-mobile widget_epcl_related_articles">
-                
-            <!-- start: .articles -->
-            <div class="main-article post">
-  <h2 class="year"># 最短路</h2>
-    
-      <article class="item default grid-33 tablet-grid-50 np-mobile">
-        <a href="https://wbybl.github.io/post/luogup3953-guang-gong-yuan" class="thumb hover-effect">
-          <span class="fullimage cover" style="display: block;background-image: url('https://wbybl.github.io/post-images/luogup3953-guang-gong-yuan.jpg');"></span>
-        </a>
-        <div class="info gradient-effect">
-          <time datetime="2020-02-09">2020-02-09</time>
-          <h4 class="title usmall">
-            <a href="https://wbybl.github.io/post/luogup3953-guang-gong-yuan">luoguP3953 逛公园</a>
-          </h4>
-        </div>
-      </article>
+      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
 
-    
-    <div class="clear"></div>
-</div>
-            <!-- end: .articles -->
-            
-                        <div class="epcl-pagination section">
-              <div class="nav">
-                
-                
-              </div>
+        <div class="center content">
+          <div class="featured-image cover" style="background-image: url('https://wbybl.github.io/post-images/cf316f3-suns-and-rays.jpg');">
+            <div class="meta top"> 
+              <time class="meta-info" style="float:left;" datetime="2020-02-12"><i class="fa fa-calendar"></i><span class="lately">1 分钟前</span></time>
+               
+               
             </div>
-            
+            <div class="info">
+              <div class="tags ">
+                
+                      <a href="https://wbybl.github.io/tag/M4RcX4ZQ6" class="ctag ctag-0 ctag-M4RcX4ZQ6" aria-label="">思维神题</a>
+                    
+                      <a href="https://wbybl.github.io/tag/feCqg6imvN" class="ctag ctag-1 ctag-feCqg6imvN" aria-label="">bfs</a>
+                    
+              </div>
+              <h1 class="title ularge white bold">CF316F3 【Suns and Rays】</h1>
+            </div>
           </div>
+        </div>  
+
+        <div class="epcl-page-wrapper">
+          <div class="left-content grid-70 np-mobile">
+            <article class="main-article post">
+              <section class="post-content">
+                <div class="text">
+                  <p>安利一下自己的<a href="https://wbybl.github.io/">博客</a><br>
+其实这题的F1，F2，F3我都是一份代码过得。<br>
+总体思路都是一样的，不受题目中椭圆、旋转的影响<br>
+这题难点在于如何分离出太阳的光芒和主体，想了半天后在网上看到一个神奇的思路<br>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/fe4a498z.png" alt="开始是这样的" loading="lazy"><br>
+然后我们先“缩小”，就是如果一个黑色旁边有白色，就把他变成白色，当然一次只能变一层，所以我们可以先拿一个数组存下来，然后枚举一遍，再放回数组里。<br>
+当然一遍缩点不够，我们需要进行4次缩小，然后太阳就会变成这个图中黄色的部分，当然要存在两个数组里，我只是放在一起，方便对比<br>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/ix2whzga.png" alt="" loading="lazy"></p>
+<p>但是这样，我们如果黄色和黑色相减，得出来的并不是分离好的光芒，而是光芒和一圈黑色，还是无法判断</p>
+<p>所以我们要用缩小的逆操作，“展开”</p>
+<p>在缩点后的数组中操作，如果一个点周围有黄色，就把它变成黄色，这样展开8次，就会变成左边的两张图，下面的是展开后的，上面的是原图<br>
+<img src="https://cdn.luogu.com.cn/upload/image_hosting/vkb6ebhi.png" alt="" loading="lazy"></p>
+<p>把这两张图相减，就得到了右边的图，相减的原则：只要黑色和黄色重合，就变成白色，这样在结合原图，用几次flood fill遍历一下，就可以解决这道题了</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+bool a[2000][2000],b[2000][2000],c[2000][2000];
+int n,m;
+void jian(){//缩小
+	memcpy(c,b,sizeof(b));
+	for(int i=1;i&lt;=n-2;i++){
+		for(int j=1;j&lt;=m-2;j++){
+			if(!b[i+1][j]||!b[i][j+1]||!b[i-1][j]||!b[i][j-1])
+			c[i][j]=0; 
+		} 
+	}
+	memcpy(b,c,sizeof(b));
+}
+void jia(){//展开
+	memcpy(c,b,sizeof(b));
+	for(int i=1;i&lt;=n-2;i++){
+		for(int j=1;j&lt;=m-2;j++){
+			if(b[i+1][j]||b[i][j+1]||b[i-1][j]||b[i][j-1]){
+				c[i][j]=1;
+			}
+		}
+	}
+	memcpy(b,c,sizeof(b));
+}
+bool vis[2000][2000];
+int d[4][2]={{0,1},{1,0},{0,-1},{-1,0}};
+int cnt,ans[20000];
+pair&lt;int,int&gt; q1[6000000],q2[6000000];
+int h1,t1,h2,t2;
+bool count(int x,int y){//判断光芒
+	h1=1;
+	t1=1;
+	q1[t1++]=make_pair(x,y);
+	a[x][y]=0;
+	int cnt=0;
+	while(h1&lt;t1){
+		x=q1[h1].first;
+		y=q1[h1].second;
+		h1++;
+		for(int i=0;i&lt;4;i++){
+			int tx=x+d[i][0],ty=y+d[i][1];
+			if(tx&gt;n||tx&lt;0||ty&gt;m||ty&lt;0)continue;
+			if(a[tx][ty]){
+				a[tx][ty]=0;
+				cnt++;
+				q1[t1++]=make_pair(tx,ty);
+			}
+		}
+	}
+	if(cnt&gt;5)return 1;
+	else return 0;
+}
+int bfs(int x,int y){//与上面的count，下面的数太阳，上面的判断光芒
+	h2=1;
+	t2=1;
+	q2[t2++]=make_pair(x,y);
+	b[x][y]=0;
+	int an=0;
+	while(h2&lt;t2){
+		x=q2[h2].first;
+		y=q2[h2].second;
+		h2++;
+		for(int i=0;i&lt;4;i++){
+			int tx=x+d[i][0],ty=y+d[i][1];
+			if(a[tx][ty]){
+				an+=count(tx,ty);
+			}
+			if(b[tx][ty]){
+				b[tx][ty]=0;
+				q2[t2++]=make_pair(tx,ty);
+			}
+		}
+	} 
+	return an;
+}
+inline int read()
+{
+    int x=0;
+    char c=getchar();
+    bool flag=0;
+    while(c&lt;'0'||c&gt;'9')
+	{
+		if(c=='-')
+			flag=1;
+		c=getchar();
+	}
+    while(c&gt;='0'&amp;&amp;c&lt;='9'){
+		x=(x&lt;&lt;3)+(x&lt;&lt;1)+c-'0';
+		c=getchar();
+	}
+    return flag?-x:x;
+}
+int main(){
+	//freopen(&quot;1.in&quot;,&quot;r&quot;,stdin);
+	cin&gt;&gt;n&gt;&gt;m;
+	for(int i=1;i&lt;=n;i++){
+		for(int j=1;j&lt;=m;j++){
+			int C=read();
+			a[i][j]=b[i][j]=C;
+		}
+	}
+	n+=2;
+	m+=2;//避免越界
+	for(int i=1;i&lt;=4;i++)jian();//缩小
+//	for(int i=1;i&lt;=n;i++){
+//		for(int j=1;j&lt;=m;j++)cout&lt;&lt;b[i][j];
+//		cout&lt;&lt;endl;
+//	}
+	for(int i=1;i&lt;=8;i++)jia();//展开
+	for(int i=0;i&lt;n;i++){
+		for(int j=0;j&lt;m;j++){
+			if(b[i][j])a[i][j]=0;//相减，得出单独的光芒
+		}
+	} 
+	for(int i=0;i&lt;n;i++){
+		for(int j=0;j&lt;m;j++){
+			if(b[i][j]){
+				ans[++cnt]=bfs(i,j);//分别遍历
+			}
+		}
+	}
+	sort(ans+1,ans+cnt+1);//按要求排序输出答案
+	cout&lt;&lt;cnt&lt;&lt;endl;
+	for(int i=1;i&lt;=cnt;i++){
+		cout&lt;&lt;ans[i]&lt;&lt;&quot; &quot;;
+	} 
+	cout&lt;&lt;endl;
+	return 0;
+}
+</code></pre>
+
+                </div>
+                <div class="clear"></div>
+              </section>
+            </article>
+            <div class="clear"></div>
+
+            <section class="related section">
+              
+              
+              <article class="next grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/dai-quan-bing-cha-ji.jpg');"></div>
+                 <a href="https://wbybl.github.io/post/dai-quan-bing-cha-ji" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2020-02-11">2020-02-11</time>
+                  <h4 class="title white no-margin">带权并查集</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://wbybl.github.io/media/images/right-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+
+                <div class="clear"></div>
+            </section>
+
+              <div class="clear"></div>
+
+              <div id="comments" class="bg-white hosted ">
+
+              
+                <p>请到客户端“主题--自定义配置--valine”中填入ID和KEY</p>
+              
+                <div class="clear"></div>
+              </div>
+
+              <div class="clear"></div>
+            </div>
           </div>
-        </div>
       </main>
 
-        <footer id="footer" class="grid-container">
+          <footer id="footer" class="grid-container">
         <div class="widgets row gradient-effect">
             <div class="default-sidebar border-effect">
               <div class="grid-33 tablet-grid-50 mobile-grid-100">
@@ -269,6 +444,50 @@
         </a>
     </footer>
     <div class="clear"></div>
+
+      <script type="text/javascript">
+       jQuery(document).ready(function($){
+          $("photos img").each(function(){
+              var _a = $("<a></a>").attr("href",this.src);
+              $(this).wrap("<div class='photo'></div>").wrap(_a);
+          })
+          $("figure img").each(function(){
+              var _b = $("<a></a>").attr("href",this.src);
+              $(this).wrap(_b);
+          })
+          isImgLoad(function(){
+            var photos = document.querySelector('photos');
+            if(photos){
+              waterfall(photos);
+            }
+            $(window).resize(function() {
+             if(photos){
+                  waterfall(photos);
+            }
+          });
+        });
+        var t_img;
+        var isLoad = true;
+        function isImgLoad(callback){
+          $('photos img').each(function(){
+            if(this.height === 0){
+              isLoad = false;
+              return false;
+            }
+          });
+          if(isLoad){
+            clearTimeout(t_img);
+            callback();
+          }else{
+            isLoad = true;
+            t_img = setTimeout(function(){
+              isImgLoad(callback);
+            },500);
+          }
+        }
+      });
+      </script>
+
     </div>
     <!-- end: #wrapper -->
   </body>
