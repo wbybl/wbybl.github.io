@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://wbybl.github.io</id>
     <title>我不要爆零的博客</title>
-    <updated>2020-02-13T11:33:01.202Z</updated>
+    <updated>2020-02-14T05:13:35.206Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <link rel="alternate" href="https://wbybl.github.io"/>
+    <link rel="self" href="https://wbybl.github.io/atom.xml"/>
+    <logo>https://wbybl.github.io/images/avatar.png</logo>
+    <icon>https://wbybl.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 我不要爆零的博客</rights>
     <entry>
         <title type="html"><![CDATA[Boruvka最小生成树&&复杂度对比]]></title>
-        <id>http://localhost:4000/post/boruvka-zui-xiao-sheng-cheng-shu-andfu-za-du-dui-bi</id>
-        <link href="http://localhost:4000/post/boruvka-zui-xiao-sheng-cheng-shu-andfu-za-du-dui-bi">
+        <id>https://wbybl.github.io/post/boruvka-zui-xiao-sheng-cheng-shu-andfu-za-du-dui-bi</id>
+        <link href="https://wbybl.github.io/post/boruvka-zui-xiao-sheng-cheng-shu-andfu-za-du-dui-bi">
         </link>
         <updated>2020-02-13T10:58:32.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="http://localhost:4000/post-images/1581591548857.png" alt="" loading="lazy"></figure>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://wbybl.github.io/post-images/1581657203168.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://wbybl.github.io/post-images/1581591548857.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[访问量]]></title>
-        <id>http://localhost:4000/post/test</id>
-        <link href="http://localhost:4000/post/test">
+        <id>https://wbybl.github.io/post/test</id>
+        <link href="https://wbybl.github.io/post/test">
         </link>
         <updated>2020-02-13T01:46:54.000Z</updated>
         <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="http://www.harlanc.vip/generatepic?userid=adbb84c0-991c-4aea-bf24-0d60c4e2e998" alt="" loading="lazy"></figure>
@@ -29,8 +30,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[CF316F3 【Suns and Rays】]]></title>
-        <id>http://localhost:4000/post/cf316f3-suns-and-rays</id>
-        <link href="http://localhost:4000/post/cf316f3-suns-and-rays">
+        <id>https://wbybl.github.io/post/cf316f3-suns-and-rays</id>
+        <link href="https://wbybl.github.io/post/cf316f3-suns-and-rays">
         </link>
         <updated>2020-02-12T01:43:58.000Z</updated>
         <content type="html"><![CDATA[<p>其实这题的F1，F2，F3我都是一份代码过得。<br>
@@ -180,8 +181,8 @@ int main(){
     </entry>
     <entry>
         <title type="html"><![CDATA[带权并查集]]></title>
-        <id>http://localhost:4000/post/dai-quan-bing-cha-ji</id>
-        <link href="http://localhost:4000/post/dai-quan-bing-cha-ji">
+        <id>https://wbybl.github.io/post/dai-quan-bing-cha-ji</id>
+        <link href="https://wbybl.github.io/post/dai-quan-bing-cha-ji">
         </link>
         <updated>2020-02-11T12:26:03.000Z</updated>
         <content type="html"><![CDATA[<p>每一条边记录每个节点到根节点的一个权值，这个权值由具体问题决定<br>
@@ -208,8 +209,8 @@ if(px!=py){
     </entry>
     <entry>
         <title type="html"><![CDATA[2-SAT]]></title>
-        <id>http://localhost:4000/post/2-sat</id>
-        <link href="http://localhost:4000/post/2-sat">
+        <id>https://wbybl.github.io/post/2-sat</id>
+        <link href="https://wbybl.github.io/post/2-sat">
         </link>
         <updated>2020-02-11T11:19:55.000Z</updated>
         <content type="html"><![CDATA[<p>有两个集合，给出n组限定关系，每一个元素要放进一个集合里，限制关系（a,b)为一个集合选择a就不能选择b。输出一种分组方案</p>
@@ -223,8 +224,8 @@ if(px!=py){
     </entry>
     <entry>
         <title type="html"><![CDATA[luoguP2341【模板】强连通分量 / [HAOI2006]受欢迎的牛]]></title>
-        <id>http://localhost:4000/post/luogup2341mo-ban-qiang-lian-tong-fen-liang-haoi2006shou-huan-ying-de-niu</id>
-        <link href="http://localhost:4000/post/luogup2341mo-ban-qiang-lian-tong-fen-liang-haoi2006shou-huan-ying-de-niu">
+        <id>https://wbybl.github.io/post/luogup2341mo-ban-qiang-lian-tong-fen-liang-haoi2006shou-huan-ying-de-niu</id>
+        <link href="https://wbybl.github.io/post/luogup2341mo-ban-qiang-lian-tong-fen-liang-haoi2006shou-huan-ying-de-niu">
         </link>
         <updated>2020-02-10T06:08:51.000Z</updated>
         <content type="html"><![CDATA[<p>tarjan就不讲了<br>
@@ -318,15 +319,15 @@ int main(){
     </entry>
     <entry>
         <title type="html"><![CDATA[luoguP1471 方差]]></title>
-        <id>http://localhost:4000/post/luogup1471-fang-chai</id>
-        <link href="http://localhost:4000/post/luogup1471-fang-chai">
+        <id>https://wbybl.github.io/post/luogup1471-fang-chai</id>
+        <link href="https://wbybl.github.io/post/luogup1471-fang-chai">
         </link>
         <updated>2020-02-09T09:07:14.000Z</updated>
         <content type="html"><![CDATA[<p>这道题一眼线段树<br>
 然而并不太好想怎么维护😭<br>
 图片引用自luogu@远航之曲<br>
-<img src="http://localhost:4000/post-images/1581239342596.png" alt="" loading="lazy"></p>
-<figure data-type="image" tabindex="1"><img src="http://localhost:4000/post-images/1581239377432.png" alt="" loading="lazy"></figure>
+<img src="https://wbybl.github.io/post-images/1581239342596.png" alt="" loading="lazy"></p>
+<figure data-type="image" tabindex="1"><img src="https://wbybl.github.io/post-images/1581239377432.png" alt="" loading="lazy"></figure>
 <p>总体思路就是记录区间和，还有区间的平方和，通过图2来进行平方和的标记下传，用图一的式子来算出方差</p>
 <pre><code>#include&lt;iostream&gt;
 #include&lt;algorithm&gt;
@@ -452,8 +453,8 @@ int main(){
     </entry>
     <entry>
         <title type="html"><![CDATA[luoguP3953 逛公园]]></title>
-        <id>http://localhost:4000/post/luogup3953-guang-gong-yuan</id>
-        <link href="http://localhost:4000/post/luogup3953-guang-gong-yuan">
+        <id>https://wbybl.github.io/post/luogup3953-guang-gong-yuan</id>
+        <link href="https://wbybl.github.io/post/luogup3953-guang-gong-yuan">
         </link>
         <updated>2020-02-09T09:01:00.000Z</updated>
         <content type="html"><![CDATA[<p>很经典（😏）的一道题，发现k不是很大，可以枚举k，然后跑一个记忆化搜索统计答案<br>
@@ -565,12 +566,12 @@ int main(){
     </entry>
     <entry>
         <title type="html"><![CDATA[luoguP4047[JSOI2010]部落划分]]></title>
-        <id>http://localhost:4000/post/luogup4047jsoi2010bu-luo-hua-fen</id>
-        <link href="http://localhost:4000/post/luogup4047jsoi2010bu-luo-hua-fen">
+        <id>https://wbybl.github.io/post/luogup4047jsoi2010bu-luo-hua-fen</id>
+        <link href="https://wbybl.github.io/post/luogup4047jsoi2010bu-luo-hua-fen">
         </link>
         <updated>2020-02-09T07:00:47.000Z</updated>
         <content type="html"><![CDATA[<p>神奇的最小生成树题😀<br>
-<img src="http://localhost:4000/post-images/1581231705702.png" alt="" loading="lazy"><br>
+<img src="https://wbybl.github.io/post-images/1581231705702.png" alt="" loading="lazy"><br>
 n^2枚举每一个点，计算出每两点之间的距离<br>
 因为没合并一次，就会减少一个部落，所以我们需要合并n-k次<br>
 根据贪心的思想，每次我们需要挑出距离最近的两个点合并，否则答案就会变小<br>
@@ -632,14 +633,14 @@ int main(){
     </entry>
     <entry>
         <title type="html"><![CDATA[luogu P3358 最长k可重区间集问题]]></title>
-        <id>http://localhost:4000/post/luogu-p3358-zui-chang-k-ke-chong-qu-jian-ji-wen-ti</id>
-        <link href="http://localhost:4000/post/luogu-p3358-zui-chang-k-ke-chong-qu-jian-ji-wen-ti">
+        <id>https://wbybl.github.io/post/luogu-p3358-zui-chang-k-ke-chong-qu-jian-ji-wen-ti</id>
+        <link href="https://wbybl.github.io/post/luogu-p3358-zui-chang-k-ke-chong-qu-jian-ji-wen-ti">
         </link>
         <updated>2020-02-09T06:55:18.000Z</updated>
         <content type="html"><![CDATA[<p>最大费用最大流，建模方法：</p>
 <p>黑线、紫线都是流量k，费用0，保障图的连通性，以及只能走k次</p>
 <p>红线代表一个给定的区间，流量1代表只能取一次，费用为区间长度代表走过这条区间，可以获得区间长度的价值<br>
-<img src="http://localhost:4000/post-images/1581231481297.png" alt="" loading="lazy"><br>
+<img src="https://wbybl.github.io/post-images/1581231481297.png" alt="" loading="lazy"><br>
 跑最大费用最大流（开始时把边权取反，跑最小费用最大流，然后再取反）</p>
 <p>需要离散化😂</p>
 <pre><code>#include&lt;iostream&gt;
