@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>动态规划 | 我不要爆零的博客</title>
+<title>tarjan求割点 | 我不要爆零的博客</title>
 <meta name="description" content="" />
 <link rel="shortcut icon" href="https://wbybl.github.io/favicon.ico">
 <link rel="stylesheet" href="https://wbybl.github.io/styles/main.css">
@@ -13,11 +13,11 @@
 <script src="https://wbybl.github.io/media/js/pace.min.js"></script>
 <script src="https://wbybl.github.io/media/js/view-image.min.js"></script>
 <script src="https://wbybl.github.io/media/js/functions.js"></script>
+    <script src="https://wbybl.github.io/media/js/waterfall.min.js"></script>
+    <script src="https://wbybl.github.io/media/js/prism.min.js"></script>
+    
   </head>
   <body>
-    <!-- start: #wrapper -->
-    <div class="wrapper">
-      
             <header id="header" class="grid-container">
         <!-- start: .menu-wrapper -->
         <div class="menu-mobile"> 
@@ -78,58 +78,165 @@
         <div class="clear"></div>
       </header>
 
-      <main id="home" class="main fullcover no-sidebar content">
-        <div class="grid-container module-wrapper enable-masonry aos-init aos-animate" data-aos="fade-up">
-        <div class="epcl-page-wrapper">
-          <div class="left-content grid-70 np-mobile widget_epcl_related_articles">
-                
-            <!-- start: .articles -->
-            <div class="main-article post">
-  <h2 class="year"># 动态规划</h2>
-    
-      <article class="item default grid-33 tablet-grid-50 np-mobile">
-        <a href="https://wbybl.github.io/post/luogup3953-guang-gong-yuan" class="thumb hover-effect">
-          <span class="fullimage cover" style="display: block;background-image: url('https://wbybl.github.io/post-images/luogup3953-guang-gong-yuan.jpg');"></span>
-        </a>
-        <div class="info gradient-effect">
-          <time datetime="2020-02-09">2020-02-09</time>
-          <h4 class="title usmall">
-            <a href="https://wbybl.github.io/post/luogup3953-guang-gong-yuan">luoguP3953 逛公园</a>
-          </h4>
-        </div>
-      </article>
+      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
 
-    
-      <article class="item default grid-33 tablet-grid-50 np-mobile">
-        <a href="https://wbybl.github.io/post/cf346d-robot-control" class="thumb hover-effect">
-          <span class="fullimage cover" style="display: block;background-image: url('https://wbybl.github.io/post-images/cf346d-robot-control.jpg');"></span>
-        </a>
-        <div class="info gradient-effect">
-          <time datetime="2020-02-09">2020-02-09</time>
-          <h4 class="title usmall">
-            <a href="https://wbybl.github.io/post/cf346d-robot-control">CF346D 【Robot Control】</a>
-          </h4>
-        </div>
-      </article>
-
-    
-    <div class="clear"></div>
-</div>
-            <!-- end: .articles -->
-            
-                        <div class="epcl-pagination section">
-              <div class="nav">
-                
+        <div class="center content">
+          <div class="featured-image cover" style="background-image: url('https://wbybl.github.io/media/images/gridea.jpg');">
+            <div class="meta top"> 
+              <time class="meta-info" style="float:left;" datetime="2020-02-22"><i class="fa fa-calendar"></i><span class="lately">1 分钟前</span></time>
+               
+               
+            </div>
+            <div class="info">
+              <div class="tags ">
                 
               </div>
+              <h1 class="title ularge white bold">tarjan求割点</h1>
             </div>
-            
           </div>
+        </div>  
+
+        <div class="epcl-page-wrapper">
+          <div class="left-content grid-70 np-mobile">
+            <article class="main-article post">
+              <section class="post-content">
+                <div class="text">
+                  <p>首先，我们要了解一下割点的定义：把这个点去掉之后，这个点所在的联通块就会被分成若干个联通块。</p>
+<p>既然这样，也就是说，只要这个节点某一个子节点所到达的节点的dfsdfsdfs序大于等于该节点的dfsdfsdfs序，即它的这个子节点无法到达dfsdfsdfs序小于该节点的节点，就说明它是一个割点了。</p>
+<p>而对于一个联通块第一个访问的节点，则需特判，如果它在遍历完一个节点所能遍历到的所有节点，还能找到没有被遍历过的节点，就说明它是一个割点。</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+using namespace std;
+struct edge{
+	int v,fail;
+	edge(){
+	}
+	edge(int a,int c){
+		v=a;
+		fail=c;
+	}
+}e[200100];
+int len,head[200100];
+int num,vis[200100];
+void add(int a,int b){
+	e[len]=edge(b,head[a]);
+	head[a]=len++;
+} 
+int ti,dfn[200100],low[200100];
+void tarjan(int now,int fa){
+	low[now]=dfn[now]=++ti;
+	int cnt=0; 
+	for(int i=head[now];~i;i=e[i].fail){
+		if(e[i].v==fa)
+		    continue;
+		if(!dfn[e[i].v]){
+		    cnt++;
+			tarjan(e[i].v,now);
+			low[now]=min(low[now],low[e[i].v]);
+			if(low[e[i].v]&gt;=dfn[now]){
+				if(fa&gt;0) 
+				    vis[now]=1,num++; 
+			}
+		}
+		else
+			low[now]=min(low[now],dfn[e[i].v]);
+	}
+	if(fa&lt;0&amp;&amp;cnt&gt;=2) 
+	vis[now]=1,num++;
+} 
+int main(){
+	//freopen(&quot;a.in&quot;,&quot;r&quot;,stdin);
+	memset(head,-1,sizeof(head));
+	int n,m;
+	cin&gt;&gt;n&gt;&gt;m;
+	for(int i=1;i&lt;=m;i++){
+		int a,b,c;
+		cin&gt;&gt;a&gt;&gt;b;
+		add(a,b);
+		add(b,a); 
+	}
+	for(int i=1;i&lt;=n;i++){
+		if(!dfn[i])tarjan(i,-1);
+	}
+	//cout&lt;&lt;num&lt;&lt;endl;
+	int cnt=0;
+	for(int i=1;i&lt;=n;i++)
+		if(vis[i])cnt++;
+		//cout&lt;&lt;i&lt;&lt;&quot; &quot;;
+	cout&lt;&lt;cnt&lt;&lt;endl;
+	for(int i=1;i&lt;=n;i++){
+		if(vis[i])cout&lt;&lt;i&lt;&lt;&quot; &quot;;
+	} 
+	cout&lt;&lt;endl;
+	return 0; 
+}
+</code></pre>
+
+                </div>
+                <div class="clear"></div>
+              </section>
+            </article>
+            <div class="clear"></div>
+
+            <section class="related section">
+              
+              
+              <article class="next grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/boruvka-zui-xiao-sheng-cheng-shu-andfu-za-du-dui-bi.jpg');"></div>
+                 <a href="https://wbybl.github.io/post/boruvka-zui-xiao-sheng-cheng-shu-andfu-za-du-dui-bi" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2020-02-13">2020-02-13</time>
+                  <h4 class="title white no-margin">Boruvka最小生成树&amp;&amp;复杂度对比</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://wbybl.github.io/media/images/right-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+
+                <div class="clear"></div>
+            </section>
+
+              <div class="clear"></div>
+
+              <div id="comments" class="bg-white hosted ">
+
+              
+                
+                  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: 'master',
+    owner: '',
+    admin: [''],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+                
+                
+              
+                <div class="clear"></div>
+              </div>
+
+              <div class="clear"></div>
+            </div>
           </div>
-        </div>
       </main>
 
-        <footer id="footer" class="grid-container">
+          <footer id="footer" class="grid-container">
         <div class="widgets row gradient-effect">
             <div class="default-sidebar border-effect">
               <div class="grid-33 tablet-grid-50 mobile-grid-100">
@@ -294,6 +401,50 @@
         </a>
     </footer>
     <div class="clear"></div>
+
+      <script type="text/javascript">
+       jQuery(document).ready(function($){
+          $("photos img").each(function(){
+              var _a = $("<a></a>").attr("href",this.src);
+              $(this).wrap("<div class='photo'></div>").wrap(_a);
+          })
+          $("figure img").each(function(){
+              var _b = $("<a></a>").attr("href",this.src);
+              $(this).wrap(_b);
+          })
+          isImgLoad(function(){
+            var photos = document.querySelector('photos');
+            if(photos){
+              waterfall(photos);
+            }
+            $(window).resize(function() {
+             if(photos){
+                  waterfall(photos);
+            }
+          });
+        });
+        var t_img;
+        var isLoad = true;
+        function isImgLoad(callback){
+          $('photos img').each(function(){
+            if(this.height === 0){
+              isLoad = false;
+              return false;
+            }
+          });
+          if(isLoad){
+            clearTimeout(t_img);
+            callback();
+          }else{
+            isLoad = true;
+            t_img = setTimeout(function(){
+              isImgLoad(callback);
+            },500);
+          }
+        }
+      });
+      </script>
+
     </div>
     <!-- end: #wrapper -->
   </body>
