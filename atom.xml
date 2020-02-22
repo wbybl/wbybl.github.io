@@ -2,13 +2,25 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wbybl.github.io</id>
     <title>我不要爆零的博客</title>
-    <updated>2020-02-22T10:52:22.781Z</updated>
+    <updated>2020-02-22T11:05:25.459Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wbybl.github.io"/>
     <link rel="self" href="https://wbybl.github.io/atom.xml"/>
     <logo>https://wbybl.github.io/images/avatar.png</logo>
     <icon>https://wbybl.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 我不要爆零的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[UOJ#67新年的毒瘤]]></title>
+        <id>https://wbybl.github.io/post/uoj67-xin-nian-de-du-liu</id>
+        <link href="https://wbybl.github.io/post/uoj67-xin-nian-de-du-liu">
+        </link>
+        <updated>2020-02-22T10:59:27.000Z</updated>
+        <content type="html"><![CDATA[<p>题意：找出一个点，使得删掉后成为一棵树<br>
+一棵n个点的树有n-1条边，所以删掉点后需要有n-2条边<br>
+所以找出所有m-n-2度数的点即可<br>
+但是要保证删掉后联通，所以割点要排除</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[tarjan求割点]]></title>
         <id>https://wbybl.github.io/post/tarjan-qiu-ge-dian</id>
@@ -638,73 +650,6 @@ int main(){
 		cout&lt;&lt;ans&lt;&lt;endl;
 	}
 	return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[luoguP4047[JSOI2010]部落划分]]></title>
-        <id>https://wbybl.github.io/post/luogup4047jsoi2010bu-luo-hua-fen</id>
-        <link href="https://wbybl.github.io/post/luogup4047jsoi2010bu-luo-hua-fen">
-        </link>
-        <updated>2020-02-09T07:00:47.000Z</updated>
-        <content type="html"><![CDATA[<p>神奇的最小生成树题😀<br>
-<img src="https://wbybl.github.io/post-images/1581231705702.png" alt="" loading="lazy"><br>
-n^2枚举每一个点，计算出每两点之间的距离<br>
-因为没合并一次，就会减少一个部落，所以我们需要合并n-k次<br>
-根据贪心的思想，每次我们需要挑出距离最近的两个点合并，否则答案就会变小<br>
-所以我们预先排个序，然后每次从小到大找没有连接起来的点，合并即可<br>
-是不是特别像kruskal<br>
-所以直接跑kruskal模板，找出n-k条边即可，最后输出下一条没有合并的边权，也就是最小距离</p>
-<pre><code>#include &lt;bits/stdc++.h&gt;
-#include&lt;cstdio&gt;
-using namespace std;
-int n,m;
-int x[1001000],y[1000100];
-struct edge{
-    int a,b;
-    double c;
-}e[2001000];
-double dis(int x,int y,int x1,int y1){
-    return sqrt((x-x1)*(x-x1)+(y-y1)*(y-y1));
-}
-bool cmp(edge a,edge b){
-    return a.c&lt;b.c;
-}
-int fa[1001000];
-int get(int x){
-    if(fa[x]==x)return x;
-    return fa[x]=get(fa[x]);
-}
-int main(){
-    cin&gt;&gt;n&gt;&gt;m;
-    for(int i=1;i&lt;=n;i++){
-        cin&gt;&gt;x[i]&gt;&gt;y[i];
-        fa[i]=i;
-    }
-    int cnt=0;
-    for(int i=1;i&lt;=n;i++){
-        for(int j=i+1;j&lt;=n;j++){
-            e[++cnt].a=i;
-            e[cnt].b=j;
-            e[cnt].c=dis(x[i],y[i],x[j],y[j]);
-        }
-    }
-    sort(e+1,e+cnt+1,cmp);
-    int tot=0;
-    for(int i=1;i&lt;=cnt;i++){
-        //cout&lt;&lt;e[i].a&lt;&lt;&quot; &quot;&lt;&lt;e[i].b&lt;&lt;&quot; &quot;&lt;&lt;e[i].c&lt;&lt;endl;
-        int A=get(e[i].a),B=get(e[i].b);
-        if(A!=B){
-            tot++;
-            fa[A]=B;
-        }
-        if(tot==n-m+1){
-            printf(&quot;%.2lf&quot;,e[i].c);            
-            return 0;
-        }
-    }
-    return 0;
 }
 </code></pre>
 ]]></content>
