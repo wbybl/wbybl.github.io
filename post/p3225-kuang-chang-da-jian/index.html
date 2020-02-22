@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>luoguP3953 逛公园 | 我不要爆零的博客</title>
+<title>P3225矿场搭建 | 我不要爆零的博客</title>
 <meta name="description" content="" />
 <link rel="shortcut icon" href="https://wbybl.github.io/favicon.ico">
 <link rel="stylesheet" href="https://wbybl.github.io/styles/main.css">
@@ -81,21 +81,21 @@
       <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
 
         <div class="center content">
-          <div class="featured-image cover" style="background-image: url('https://wbybl.github.io/post-images/luogup3953-guang-gong-yuan.jpg');">
+          <div class="featured-image cover" style="background-image: url('https://wbybl.github.io/post-images/p3225-kuang-chang-da-jian.jpg');">
             <div class="meta top"> 
-              <time class="meta-info" style="float:left;" datetime="2020-02-09"><i class="fa fa-calendar"></i><span class="lately">13 天前</span></time>
+              <time class="meta-info" style="float:left;" datetime="2020-02-22"><i class="fa fa-calendar"></i><span class="lately">3 分钟前</span></time>
                
                
             </div>
             <div class="info">
               <div class="tags ">
                 
-                      <a href="https://wbybl.github.io/tag/ySLJzd40h" class="ctag ctag-0 ctag-ySLJzd40h" aria-label="">最短路</a>
+                      <a href="https://wbybl.github.io/tag/D-_zGIDG0" class="ctag ctag-0 ctag-D-_zGIDG0" aria-label="">割点</a>
                     
-                      <a href="https://wbybl.github.io/tag/ZMzrP6U4m" class="ctag ctag-1 ctag-ZMzrP6U4m" aria-label="">动态规划</a>
+                      <a href="https://wbybl.github.io/tag/zGWnU83Kd" class="ctag ctag-1 ctag-zGWnU83Kd" aria-label="">tarjan</a>
                     
               </div>
-              <h1 class="title ularge white bold">luoguP3953 逛公园</h1>
+              <h1 class="title ularge white bold">P3225矿场搭建</h1>
             </div>
           </div>
         </div>  
@@ -105,111 +105,14 @@
             <article class="main-article post">
               <section class="post-content">
                 <div class="text">
-                  <p>很经典（😏）的一道题，发现k不是很大，可以枚举k，然后跑一个记忆化搜索统计答案<br>
-思路简单，但是写起来有些难度</p>
-<p>可以dp来做，用f[i][j]表示从n到i的距离&lt;最短距离+k的方案数，对于每一条边都尝试走，而这个状态可以表示为u-&gt;v: d[u]-d[v]+k-len[u-&gt;v];最后西格玛一下就over了<br>
-挺神奇的哈</p>
-<pre><code>#include&lt;bits/stdc++.h&gt;
-using namespace std;
-vector&lt;pair&lt;int,int&gt; &gt; v1[1100000],v2[1100000];
-inline int read(){
-    int x=0;
-    char c=getchar();
-    bool flag=0;
-    while(c&lt;'0'||c&gt;'9'){
-		if(c=='-')
-			flag=1;
-		c=getchar();
-	}
-    while(c&gt;='0'&amp;&amp;c&lt;='9'){
-		x=(x&lt;&lt;3)+(x&lt;&lt;1)+c-'0';
-		c=getchar();
-	}
-    return flag?-x:x;
-}
-int dis[1100000],n,m;
-void spfa(int s){
-	for(int i=1;i&lt;=n;i++){
-		dis[i]=2147483646;
-	}
-	queue&lt;int&gt; q;
-	dis[s]=0;
-	q.push(s);
-	while(!q.empty()){
-		int now=q.front();
-		q.pop();
-		for(int i=0;i&lt;v1[now].size();i++){
-			int v=v1[now][i].first,w=v1[now][i].second;
-			if(dis[v]&gt;dis[now]+w){
-				dis[v]=dis[now]+w;
-				q.push(v); 
-			}
-		}
-	}
-}
-int k,dp[100100][55],mod;
-bool vis[100100][55];
-int dfs(int x,int left){
-	if(left&lt;0||left&gt;k)return 0;
-	int ans=0;
-	if(vis[x][left]){
-		vis[x][left]=0;
-		return -1;
-	}
-	if(dp[x][left]!=-1)return dp[x][left];
-	vis[x][left]=1;
-	for(int i=0;i&lt;v2[x].size();i++){
-        int sum=dfs(v2[x][i].first,dis[x]+left-dis[v2[x][i].first]-v2[x][i].second);
-	    if(sum==-1){
-            vis[x][left]=0;
-            return -1;
-        }
-        ans=(ans+sum)%mod;
-	}
-	vis[x][left]=0;
-    if(x==1&amp;&amp;left==0)ans++;
-    dp[x][left]=ans;
-    return ans;
-}
-int main(){
-	ios::sync_with_stdio(0);
-	int t;
-	cin&gt;&gt;t;
-	while(t--){
-		//n=read();
-		//m=read();
-		//k=read();
-		//mod=read();
-		cin&gt;&gt;n&gt;&gt;m&gt;&gt;k&gt;&gt;mod;
-		for(int i=1;i&lt;=n;i++){
-			v1[i].clear();
-			v2[i].clear();
-		}
-		for(int i=1;i&lt;=m;i++){
-			int u,v,w;
-		//	u=read();
-		//	v=read();
-		//	w=read();
-			cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;
-			v1[u].push_back(make_pair(v,w));
-			v2[v].push_back(make_pair(u,w));
-		} 
-		spfa(1);
-		memset(dp,-1,sizeof(dp));
-		int ans=0;
-		for(int i=0;i&lt;=k;i++){
-			int tmp=dfs(n,i);
-			if(tmp==-1){
-				ans=-1;
-				break;
-			}
-			ans=(ans+tmp)%mod; 
-		}
-		cout&lt;&lt;ans&lt;&lt;endl;
-	}
-	return 0;
-}
-</code></pre>
+                  <p>step1:跑出所有的割点<br>
+step2:讨论每个连通块<br>
+(1) 没有割点<br>
+选择两个非割点的点建立<br>
+(2) 有一个割点<br>
+选择一个非割点的点建立<br>
+(3)&gt;=2割割点<br>
+无需建立</p>
 
                 </div>
                 <div class="clear"></div>
@@ -219,26 +122,13 @@ int main(){
 
             <section class="related section">
               
-              <article class="prev grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/luogup1471-fang-chai.jpg');"></div>
-                 <a href="https://wbybl.github.io/post/luogup1471-fang-chai" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2020-02-09">2020-02-09</time>
-                  <h4 class="title white no-margin">luoguP1471 方差</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="https://wbybl.github.io/media/images/left-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
-              
               
               <article class="next grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/luogup4047jsoi2010bu-luo-hua-fen.jpg');"></div>
-                 <a href="https://wbybl.github.io/post/luogup4047jsoi2010bu-luo-hua-fen" class="full-link"></a>
+                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/uoj67-xin-nian-de-du-liu.jpg');"></div>
+                 <a href="https://wbybl.github.io/post/uoj67-xin-nian-de-du-liu" class="full-link"></a>
                  <div class="info">
-                  <time datetime="2020-02-09">2020-02-09</time>
-                  <h4 class="title white no-margin">luoguP4047[JSOI2010]部落划分</h4>
+                  <time datetime="2020-02-22">2020-02-22</time>
+                  <h4 class="title white no-margin">UOJ#67新年的毒瘤</h4>
                 </div>
                  <span class="epcl-button red">
                   <img src="https://wbybl.github.io/media/images/right-arrow.svg" width="15" alt="Left Arrow">
