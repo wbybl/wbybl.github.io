@@ -2,13 +2,32 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wbybl.github.io</id>
     <title>我不要爆零的博客</title>
-    <updated>2020-02-22T11:11:39.164Z</updated>
+    <updated>2020-04-04T10:40:29.064Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wbybl.github.io"/>
     <link rel="self" href="https://wbybl.github.io/atom.xml"/>
     <logo>https://wbybl.github.io/images/avatar.png</logo>
     <icon>https://wbybl.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 我不要爆零的博客</rights>
+    <entry>
+        <title type="html"><![CDATA[二分图]]></title>
+        <id>https://wbybl.github.io/post/er-fen-tu</id>
+        <link href="https://wbybl.github.io/post/er-fen-tu">
+        </link>
+        <updated>2020-04-04T10:20:48.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="定义">定义：</h2>
+<figure data-type="image" tabindex="1"><img src="https://wbybl.github.io/post-images/1585995818205.png" alt="" loading="lazy"></figure>
+<h2 id="判定二分图染色">判定：二分图染色</h2>
+<figure data-type="image" tabindex="2"><img src="https://wbybl.github.io/post-images/1585995850247.png" alt="" loading="lazy"></figure>
+<h2 id="最大匹配">最大匹配</h2>
+<figure data-type="image" tabindex="3"><img src="https://wbybl.github.io/post-images/1585995949549.png" alt="" loading="lazy"></figure>
+<h1 id="匈牙利算法"><strong>匈牙利算法</strong></h1>
+<p>用来计算二分图最大匹配<br>
+增广路：将交错路的匹配边和未匹配边交换，就会增加一组匹配</p>
+<p>匈牙利算法通过对每个结点寻找增广路计算答案<br>
+<img src="https://wbybl.github.io/post-images/1585996509738.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[P3225矿场搭建]]></title>
         <id>https://wbybl.github.io/post/p3225-kuang-chang-da-jian</id>
@@ -418,140 +437,6 @@ int main(){
 	if(tot==1)
 	cout&lt;&lt;ans&lt;&lt;endl;
 	else cout&lt;&lt;0&lt;&lt;endl;
-	return 0;
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[luoguP1471 方差]]></title>
-        <id>https://wbybl.github.io/post/luogup1471-fang-chai</id>
-        <link href="https://wbybl.github.io/post/luogup1471-fang-chai">
-        </link>
-        <updated>2020-02-09T09:07:14.000Z</updated>
-        <content type="html"><![CDATA[<p>这道题一眼线段树<br>
-然而并不太好想怎么维护😭<br>
-图片引用自luogu@远航之曲<br>
-<img src="https://wbybl.github.io/post-images/1581239342596.png" alt="" loading="lazy"></p>
-<figure data-type="image" tabindex="1"><img src="https://wbybl.github.io/post-images/1581239377432.png" alt="" loading="lazy"></figure>
-<p>总体思路就是记录区间和，还有区间的平方和，通过图2来进行平方和的标记下传，用图一的式子来算出方差</p>
-<pre><code>#include&lt;iostream&gt;
-#include&lt;algorithm&gt;
-#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;cmath&gt;
-#include&lt;queue&gt;
-#include&lt;vector&gt;
-#include&lt;map&gt;
-#include&lt;string&gt;
-#include&lt;stack&gt;
-#include&lt;set&gt;
-using namespace std;
-inline int read(){
-    int x=0;
-    char c=getchar();
-    bool flag=0;
-    while(c&lt;'0'||c&gt;'9'){
-		if(c=='-')
-			flag=1;
-		c=getchar();
-	}
-    while(c&gt;='0'&amp;&amp;c&lt;='9'){
-		x=(x&lt;&lt;3)+(x&lt;&lt;1)+c-'0';
-		c=getchar();
-	}
-    return flag?-x:x;
-}
-double tree1[500100];
-double tree2[500100];
-double lazy[500100],a[500010];
-void build(int l,int r,int t){
-	if(l==r){
-		tree1[t]=a[l];
-		tree2[t]=a[l]*a[l];
-		return;
-	}
-	int mid=(l+r)/2;
-	build(l,mid,t*2);
-	build(mid+1,r,t*2+1);
-	tree1[t]=tree1[t*2]+tree1[t*2+1];
-	tree2[t]=tree2[t*2]+tree2[t*2+1];
-}
-void push(int t,int len){
-	if(lazy[t]==0)return;
-	tree2[t*2]+=(len-len/2)*lazy[t]*lazy[t]+2*tree1[t*2]*lazy[t];
-	tree2[t*2+1]+=(len/2)*lazy[t]*lazy[t]+2*tree1[t*2+1]*lazy[t];
-	tree1[t*2]+=(len-len/2)*lazy[t];
-	tree1[t*2+1]+=(len/2)*lazy[t];
-	lazy[t*2]+=lazy[t];
-	lazy[t*2+1]+=lazy[t];
-	lazy[t]=0;
-	return;
-}
-double ans;
-void query(int ll,int rr,int l,int r,int t,int flag){
-	if(ll&lt;=l&amp;&amp;r&lt;=rr){
-		if(flag==1)ans+=tree1[t];
-		else ans+=tree2[t]; 
-		return;
-	}
-	push(t,r-l+1);
-	int mid=(l+r)/2;
-	if(ll&lt;=mid)query(ll,rr,l,mid,t*2,flag);
-	if(rr&gt;mid)query(ll,rr,mid+1,r,t*2+1,flag);
-	tree1[t]=tree1[t*2]+tree1[t*2+1];
-	tree2[t]=tree2[t*2]+tree2[t*2+1];
-}
-void modify(int ll,int rr,int l,int r,double c,int t){
-	if(ll&lt;=l&amp;&amp;r&lt;=rr){
-		lazy[t]+=c;
-		tree2[t]+=2*c*tree1[t]+c*c*(r-l+1);
-		tree1[t]+=(r-l+1)*c;
-		return;
-	}
-	push(t,r-l+1);
-	int mid=(l+r)/2;
-	if(ll&lt;=mid)modify(ll,rr,l,mid,c,t*2);
-	if(rr&gt;mid)modify(ll,rr,mid+1,r,c,t*2+1);
-	tree1[t]=tree1[t*2]+tree1[t*2+1];
-	tree2[t]=tree2[t*2]+tree2[t*2+1];
-}
-int main(){
-	int n,m;
-	cin&gt;&gt;n&gt;&gt;m;
-	for(int i=1;i&lt;=n;i++)cin&gt;&gt;a[i];
-	build(1,n,1);
-	while(m--){
-		int opt;
-		cin&gt;&gt;opt;
-		if(opt==1){
-			int a,b;
-			double c;
-			cin&gt;&gt;a&gt;&gt;b&gt;&gt;c;
-			modify(a,b,1,n,c,1);
-		}else if(opt==2){
-			int a,b;
-			cin&gt;&gt;a&gt;&gt;b;
-			ans=0;
-			query(a,b,1,n,1,1);
-			double avg=ans;
-			avg=avg/(b-a+1);
-			printf(&quot;%.4lf\n&quot;,avg);
-		}else if(opt==3){
-			int a,b;
-			cin&gt;&gt;a&gt;&gt;b;
-			ans=0;
-			query(a,b,1,n,1,1);
-			double avg=ans;
-			avg=avg/(b-a+1);
-			ans=0;
-			query(a,b,1,n,1,2);
-			double sum=ans;
-			sum=sum/(b-a+1);
-			double ANS=sum-avg*avg;
-			printf(&quot;%.4lf\n&quot;,ANS); 
-		}
-	}
 	return 0;
 }
 </code></pre>

@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>luoguP4047[JSOI2010]部落划分 | 我不要爆零的博客</title>
+<title>二分图 | 我不要爆零的博客</title>
 <meta name="description" content="" />
 <link rel="shortcut icon" href="https://wbybl.github.io/favicon.ico">
 <link rel="stylesheet" href="https://wbybl.github.io/styles/main.css">
@@ -81,19 +81,17 @@
       <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
 
         <div class="center content">
-          <div class="featured-image cover" style="background-image: url('https://wbybl.github.io/post-images/luogup4047jsoi2010bu-luo-hua-fen.jpg');">
+          <div class="featured-image cover" style="background-image: url('https://wbybl.github.io/media/images/gridea.jpg');">
             <div class="meta top"> 
-              <time class="meta-info" style="float:left;" datetime="2020-02-09"><i class="fa fa-calendar"></i><span class="lately">2 个月前</span></time>
+              <time class="meta-info" style="float:left;" datetime="2020-04-04"><i class="fa fa-calendar"></i><span class="lately">20 分钟前</span></time>
                
                
             </div>
             <div class="info">
               <div class="tags ">
                 
-                      <a href="https://wbybl.github.io/tag/ARqI9J8Wq" class="ctag ctag-0 ctag-ARqI9J8Wq" aria-label="">最小生成树</a>
-                    
               </div>
-              <h1 class="title ularge white bold">luoguP4047[JSOI2010]部落划分</h1>
+              <h1 class="title ularge white bold">二分图</h1>
             </div>
           </div>
         </div>  
@@ -103,65 +101,17 @@
             <article class="main-article post">
               <section class="post-content">
                 <div class="text">
-                  <p>神奇的最小生成树题😀<br>
-<img src="https://wbybl.github.io/post-images/1581231705702.png" alt="" loading="lazy"><br>
-n^2枚举每一个点，计算出每两点之间的距离<br>
-因为没合并一次，就会减少一个部落，所以我们需要合并n-k次<br>
-根据贪心的思想，每次我们需要挑出距离最近的两个点合并，否则答案就会变小<br>
-所以我们预先排个序，然后每次从小到大找没有连接起来的点，合并即可<br>
-是不是特别像kruskal<br>
-所以直接跑kruskal模板，找出n-k条边即可，最后输出下一条没有合并的边权，也就是最小距离</p>
-<pre><code>#include &lt;bits/stdc++.h&gt;
-#include&lt;cstdio&gt;
-using namespace std;
-int n,m;
-int x[1001000],y[1000100];
-struct edge{
-    int a,b;
-    double c;
-}e[2001000];
-double dis(int x,int y,int x1,int y1){
-    return sqrt((x-x1)*(x-x1)+(y-y1)*(y-y1));
-}
-bool cmp(edge a,edge b){
-    return a.c&lt;b.c;
-}
-int fa[1001000];
-int get(int x){
-    if(fa[x]==x)return x;
-    return fa[x]=get(fa[x]);
-}
-int main(){
-    cin&gt;&gt;n&gt;&gt;m;
-    for(int i=1;i&lt;=n;i++){
-        cin&gt;&gt;x[i]&gt;&gt;y[i];
-        fa[i]=i;
-    }
-    int cnt=0;
-    for(int i=1;i&lt;=n;i++){
-        for(int j=i+1;j&lt;=n;j++){
-            e[++cnt].a=i;
-            e[cnt].b=j;
-            e[cnt].c=dis(x[i],y[i],x[j],y[j]);
-        }
-    }
-    sort(e+1,e+cnt+1,cmp);
-    int tot=0;
-    for(int i=1;i&lt;=cnt;i++){
-        //cout&lt;&lt;e[i].a&lt;&lt;&quot; &quot;&lt;&lt;e[i].b&lt;&lt;&quot; &quot;&lt;&lt;e[i].c&lt;&lt;endl;
-        int A=get(e[i].a),B=get(e[i].b);
-        if(A!=B){
-            tot++;
-            fa[A]=B;
-        }
-        if(tot==n-m+1){
-            printf(&quot;%.2lf&quot;,e[i].c);            
-            return 0;
-        }
-    }
-    return 0;
-}
-</code></pre>
+                  <h2 id="定义">定义：</h2>
+<figure data-type="image" tabindex="1"><img src="https://wbybl.github.io/post-images/1585995818205.png" alt="" loading="lazy"></figure>
+<h2 id="判定二分图染色">判定：二分图染色</h2>
+<figure data-type="image" tabindex="2"><img src="https://wbybl.github.io/post-images/1585995850247.png" alt="" loading="lazy"></figure>
+<h2 id="最大匹配">最大匹配</h2>
+<figure data-type="image" tabindex="3"><img src="https://wbybl.github.io/post-images/1585995949549.png" alt="" loading="lazy"></figure>
+<h1 id="匈牙利算法"><strong>匈牙利算法</strong></h1>
+<p>用来计算二分图最大匹配<br>
+增广路：将交错路的匹配边和未匹配边交换，就会增加一组匹配</p>
+<p>匈牙利算法通过对每个结点寻找增广路计算答案<br>
+<img src="https://wbybl.github.io/post-images/1585996509738.png" alt="" loading="lazy"></p>
 
                 </div>
                 <div class="clear"></div>
@@ -171,26 +121,13 @@ int main(){
 
             <section class="related section">
               
-              <article class="prev grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/luogup3953-guang-gong-yuan.jpg');"></div>
-                 <a href="https://wbybl.github.io/post/luogup3953-guang-gong-yuan" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2020-02-09">2020-02-09</time>
-                  <h4 class="title white no-margin">luoguP3953 逛公园</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="https://wbybl.github.io/media/images/left-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
-              
               
               <article class="next grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/luogu-p3358-zui-chang-k-ke-chong-qu-jian-ji-wen-ti.jpg');"></div>
-                 <a href="https://wbybl.github.io/post/luogu-p3358-zui-chang-k-ke-chong-qu-jian-ji-wen-ti" class="full-link"></a>
+                <div class="thumb cover lazy loaded" style="background-image: url('https://wbybl.github.io/post-images/p3225-kuang-chang-da-jian.jpg');"></div>
+                 <a href="https://wbybl.github.io/post/p3225-kuang-chang-da-jian" class="full-link"></a>
                  <div class="info">
-                  <time datetime="2020-02-09">2020-02-09</time>
-                  <h4 class="title white no-margin">luogu P3358 最长k可重区间集问题</h4>
+                  <time datetime="2020-02-22">2020-02-22</time>
+                  <h4 class="title white no-margin">P3225矿场搭建</h4>
                 </div>
                  <span class="epcl-button red">
                   <img src="https://wbybl.github.io/media/images/right-arrow.svg" width="15" alt="Left Arrow">
